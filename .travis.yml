@@ -1,30 +1,22 @@
-## Sample .travis.yml file for use with metacran/r-builder
-## See https://github.com/metacran/r-builder for details.
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+# copied from dplyr
 
-language: c
-sudo: required
-
-before_install:
-  - curl -OL https://raw.githubusercontent.com/metacran/r-builder/master/pkg-build.sh
-  - chmod 755 pkg-build.sh
-  - ./pkg-build.sh bootstrap
-
-install:
-  - ./pkg-build.sh install_deps
-
-script:
-  - ./pkg-build.sh run_tests
-
-after_failure:
-  - ./pkg-build.sh dump_logs
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+language: r
+sudo: false
+cache: packages
 
 env:
-  matrix:
-    - RVERSION=oldrel
-    - RVERSION=release
-    - RVERSION=devel
+  global:
+  - _R_CHECK_FORCE_SUGGESTS_=false
+  - MAKEFLAGS="-j 2"
+
+include:
+- r: release
+- r: oldrel
+- r: devel
+
+before_script:
+- mkdir -p ~/.R; echo 'PKG_CXXFLAGS := ${PKG_CXXFLAGS} -Wall -Wextra -pedantic -Werror' > ~/.R/Makevars
+
+after_success:
+- Rscript -e 'covr::codecov()'
