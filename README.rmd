@@ -9,12 +9,8 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Master: [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/pim)](http://cran.r-project.org/package=pim)
 [![Build_Status](https://travis-ci.org/CenterForStatistics-UGent/pim.svg?branch=master)](https://travis-ci.org/CenterForStatistics-UGent/pim)
-
-Current dev build: 
-
-[![Build_Status](https://travis-ci.org/CenterForStatistics-UGent/pim.svg?branch=dev2.1)](https://travis-ci.org/CenterForStatistics-UGent/pim)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/pim)](http://cran.r-project.org/package=pim)
 
 ## Overview
 
