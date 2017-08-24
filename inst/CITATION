@@ -1,0 +1,25 @@
+citation(auto = meta)
+bibentry("Article",
+         title = "Probabilistic Index Models",
+         author = c(
+           person("Olivier","Thas"),
+           person("Jan", "De Neve"),
+           person("Lieven", "Clement"),
+           person("Jean-Pierre", "Ottoy")
+         ),
+         journal = "Journal of the Royal Statistical Society B",
+         year = "2012",
+         volume = "74",
+         number = "4",
+         pages = "623-671",
+         header = paste(
+           "For reference to the theory of probabilistic",
+           "index models, use:"
+         ),
+         footer = paste(
+           "You can get BibTex entries for both the package and the",
+           "theoretical paper with following command:\n",
+           "toBibtex(citation(\"pim\"))"
+         )
+)
+

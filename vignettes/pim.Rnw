@@ -1,0 +1,383 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+%\VignetteIndexEntry{An R package for fitting probabilistic index models}
+%\VignetteKeyword{probabilistic index model, regression}
+%\VignetteDepends{pim}
+%\VignettePackage{pim}
+%documentclass[12pt, a4paper]{article}
+\documentclass[12pt]{article}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[authoryear,round]{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage[noae]{Sweave}
+
+
+ 
+\textwidth=6.2in
+\textheight=8.5in
+\parskip=.3cm
+\oddsidemargin=.1in
+\evensidemargin=.1in
+\headheight=-.3in
+
+\newcommand{\mb}[1]
+   {\boldsymbol{#1}}
+\newcommand{\trace}[1]
+   {\mbox{tr}\left[#1\right]}
+\newcommand{\E}[1]
+  {\mathrm{E}\left(#1\right)}
+\newcommand{\Var}[1]
+  {\mathrm{Var}\left(#1\right)}
+\newcommand{\Cov}[1]
+  {\mathrm{Cov}\left(#1\right)}
+\newcommand{\Cor}[1]
+  {\mathrm{Cor}\left(#1\right)}
+\newcommand{\norm}[2]
+  {\langle #1 , #2 \rangle}
+\newcommand{\bX}{\mb{X}}
+\newcommand{\bx}{\mb{x}}
+\newcommand{\bZ}{\mb{Z}}
+\newcommand{\bz}{\mb{z}}
+\newcommand{\bY}{\mb{Y}}
+\newcommand{\bU}{\mb{U}}
+\newcommand{\bV}{\mb{V}}
+\newcommand{\bh}{\mb{h}}
+\newcommand{\bg}{\mb{g}}
+\newcommand{\bS}{\mb{S}}
+\newcommand{\bA}{\mb{A}}
+\newcommand{\bB}{\mb{B}}
+\newcommand{\bsigma}{\mb{\Sigma}}
+\newcommand{\btheta}{\mb{\theta}}
+\newcommand{\bEta}{\mb{\eta}}
+\newcommand{\bbeta}{\mb{\beta}} 
+\newcommand{\balpha}{\mb{\alpha}}
+\newcommand{\bgamma}{\mb{\gamma}}
+\newcommand{\bdelta}{\mb{\delta}}
+\newcommand{\bphi}{\mb{\varphi}}
+\newcommand{\prob}[1]{\mathrm{P}\left( #1 \right)}
+\newcommand{\hatprob}[1]{\mathrm{\hat{P}}\left( #1 \right)}
+\newcommand{\quant}[1]{\mathrm{Q}_{\tau}\left( #1 \right)}
+\newcommand{\I}[1]{\mathrm{I}\left( #1 \right)}
+\newcommand{\leqs}{\preccurlyeq}
+\newcommand{\geqs}{\succcurlyeq}
+\newcommand{\expit}{\mathrm{expit}}
+\newcommand{\logit}{\mathrm{logit}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\odds}[1]{\mathrm{odds}\left( #1 \right)}
+
+
+\author{Jan De Neve and Joris Meys}
+\begin{document}
+%%\SweaveOpts{concordance=TRUE} % Gave an error while compiling
+\title{pim: An R package for fitting probabilistic index models}
+
+\maketitle
+\tableofcontents
+\section{Introduction}
+
+
+
+In this document we explain and illustrate how the \texttt{pim} package can be employed to fit a Probabilistic Index Model (PIM). PIMs are introduced and discussed in detail in \cite{Thas2012} and \cite{DeNeve2013}. We further illustrate the connection between PIMs and several rank-tests, as discussed in \cite{DeNeveThas2015}. The main focus of this vignette is to illustrate the usage of the \texttt{pim} package rather than explaining PIMs in detail. 
+
+
+ Let $(Y,\bX)$ and $(Y',\bX')$ be identically and independently distributed random vectors, where $\bX$ ($\bX'$) denotes the vector of covariates associated with the univariate outcome $Y$ ($Y'$). A PIM is defined as: 
+\begin{equation}\label{pim}
+\prob{Y \leqs Y' \mid \bX, \bX'} = g^{-1}[(\bX' - \bX)^T \bbeta],
+\end{equation}
+with $\prob{Y \leqs Y'} :=  \prob{Y < Y'} + 0.5 \prob{Y = Y'}$. Here $\bbeta$ denotes the parameter of interest and $g(\cdot)$ is a link function, e.g. the logit, probit or identity. Model (\ref{pim}) can be considered as a \emph{standard} PIM: the right-hand side is fairly simple and we do not impose restrictions on the values of $\bX$ and $\bX'$. The theory developed in \cite{Thas2012} allows constructing more flexible PIMs. These PIMs can also be fitted with the \texttt{pim} package. However, for didactical purposes, we postpone this discussion to Section \ref{S_ComplexPIMs}.  
+
+For notational convenience, we will sometimes drop the conditioning statement within the probability operator so that equation (\ref{pim}) can be simplified to:
+$$
+\prob{Y \leqs Y' } = g^{-1}[(\bX' - \bX)^T \bbeta].
+$$
+
+
+
+
+%In the following sections we illustrate the \texttt{pim()} function by applying it on different case. In Sections \ref{S_crds}-\ref{S_fe} case studies from Section 6 in \cite{Thas2012} are analyzed, while Section \ref{S_categorical} considers categorical predictors. Section \ref{S_conclusion} gives some conclusions and remarks.  
+
+% Code to ensure that R-output is not wider than the pdf
+<<echo=FALSE>>=
+options(width=82)
+@
+
+
+\section{Standard PIM}\label{S_crds}
+
+The Childhood Respiratory Disease Study (CRDS) is a longitudinal study following the pulmonary function in children. We only consider the part of this study provided by \citet{Rosner1999}. The outcome is the forced expiratory volume (FEV), which is an index of pulmonary function measured as the volume of air expelled after one second of constant effort. Along with FEV (litres), the AGE (years), HEIGHT (inches), SEX, and SMOKING status ($1$ if the child smokes, $0$ if the child does not smoke) are provided for $654$ children of ages $3-19$. See \citeauthor{Rosner1999} (\citeyear{Rosner1999}, p. 41) for more information. The primary focus is on the analysis of the effect of smoking status on the pulmonary function. The data are provided with the \texttt{pim} package. 
+<<>>=
+library("pim")
+data(FEVData)
+head(FEVData)
+@
+
+To model the effect of AGE and SMOKE on FEV, we consider a PIM with main effects and logit link:
+\begin{eqnarray}\label{EqPIM1}
+\text{logit} \left[\prob{FEV \leqs FEV' } \right] &=& \beta_1 (AGE' - AGE) + \beta_2(SMOKE' - SMOKE),
+\end{eqnarray}
+where $\text{logit}(x) = \log[x/(1-x)]$.
+The function \texttt{pim()} can be used to fit this model and the syntax is similar to \texttt{glm()}.
+
+<<>>=
+pim1 <- pim(formula = FEV ~ Age + Smoke, data = FEVData)
+@
+By default the logit-link is considered and the \texttt{pim()} function automatically translates the formula statement \texttt{ FEV $\sim$ Age + Smoke} to the formula statement of the PIM (\ref{EqPIM1}). More generally, a formula statement of the form $Y \sim \bX$ will be automatically converted to a formula statement of the form $\prob{Y \leqs Y'} \sim \bX' - \bX$. 
+
+The estimated coefficients can be extracted via \texttt{coef()}.
+<<>>=
+coef(pim1)
+@
+Consequently, $\hat{\beta}_1 = \Sexpr{round(coef(pim1)[1],2)}$ and $\hat{\beta}_2 = \Sexpr{round(coef(pim1)[2],2)}$. Inference on these parameters is obtained via the \texttt{summary()} function
+<<>>=
+summary(pim1)
+@
+The p-values correspond to the hypotheses $H_0: \beta_1 = 0$ and $H_0: \beta_2 = 0$. 
+
+The estimated variance-covariance matrix of $(\hat{\beta}_1, \hat{\beta}_2)$ can be obtained with the \texttt{vcov()} function. For more functions, see \texttt{help("pim-class")}. 
+
+\cite{Thas2012} argue that the following PIM with an interaction is more appropriate:
+\begin{eqnarray}
+\text{logit} \left[\prob{FEV \leqs FEV' } \right] &=& \beta_1 (AGE' - AGE) + \beta_2(SMOKE' - SMOKE) \nonumber \\ 
+												   & &  + \beta_3 (AGE'*SMOKE' - AGE*SMOKE) \label{pim2}. 
+\end{eqnarray}
+This model can be fitted via:
+<<>>=
+pim2 <- pim(FEV ~ Age*Smoke, data = FEVData)
+summary(pim2)
+@
+We end this section with an illustration of the interpretation of the effect of AGE for model (\ref{pim2}). For 2 randomly selected children with the same smoking status (i.e. $SMOKE = SMOKE'$) and a year difference in age ($AGE = x$ and $AGE' = x+1$), the probability that the eldest has a higher $FEV$ is estimated by: 
+$$
+\text{expit}(\Sexpr{round(coef(pim2)[1], 2)} \Sexpr{round(coef(pim2)[3], 2)}SMOKE), \quad \text{expit}(x) = \exp(x)/[1+\exp(x)]. 
+$$
+ For non-smokers ($SMOKE = 0$) this probability is $\text{expit}(\Sexpr{round(coef(pim2)[1], 2)}) = \Sexpr{round(plogis(coef(pim2)[1]),2)}$, while for smokers ($SMOKE = 1$) this becomes $\text{expit}(\Sexpr{round(coef(pim2)[1], 2)} \Sexpr{round(coef(pim2)[3], 2)}) = \Sexpr{round(plogis(coef(pim2)[1] + coef(pim2)[3]),2)}$.
+
+
+
+
+\section{More complicated examples}\label{S_ComplexPIMs}
+
+In its most general form, a PIM is defined as
+\begin{equation}\label{GeneralPIM}
+\prob{Y \leqs Y' \mid \bX, \bX'} = m(\bX,\bX'; \bbeta), \quad (\bX, \bX') \in \mathcal{X}_n,
+\end{equation}
+where $\mathcal{X}_n$ denotes the set of pairs $(\bX, \bX')$ for which the model is defined. We refer to \cite{Thas2012} for more details. Model (\ref{pim}) is a special case where $m(\bX,\bX'; \bbeta) = g^{-1}[(\bX' - \bX)^T \bbeta]$ and $\mathcal{X}_n$ does not impose any restrictions on the couples $\bX$ and $\bX'$. In Section \ref{S_fe} we illustrate how choices of $m(\bX,\bX';\bbeta)$ different form $g^{-1}[(\bX' - \bX)^T \bbeta]$ can be implemented and in Section \ref{S_restrcomp} we illustrate how restrictions imposed by $\mathcal{X}_n$ can be included.  
+
+\subsection{Customised formulas}\label{S_fe}
+
+To illustrate how PIMs can be fitted with customised formulas, we consider the food expenditure data set. In this study the food expenditure (FE, in Belgian francs) and the annual household income (HI, in Belgian francs) for $235$ Belgian working-class households are recorded. Ernst Engel provided these data to support his hypothesis that the proportion spent on food falls with increasing income, even if actual expenditure on food rises. The data are also used in \citet{Koenker2005} to illustrate quantile regression and are available in the \texttt{pim} and \texttt{quantreg} packages \citep{Quantile2011}.
+<<>>=
+data(EngelData)
+head(EngelData)
+@
+
+\begin{figure}[htbp!]
+\centering
+<<fig=TRUE,height=2, width=2,echo= FALSE>>=
+par(cex = 0.4)
+plot(foodexp~income, data = EngelData)
+@
+\caption{Food expenditure as a function of annual household income.}
+\label{Fig1}
+\end{figure}
+
+
+Figure \ref{Fig1} indicates that the variability in food expenditure increases with increasing household income. To account for this heteroscedasticity, \cite{Thas2012} proposed the following PIM: 
+\begin{equation}\label{pim3}
+\text{logit}\left[\prob{FE \leqs FE' } \right]= \beta \frac{HI' - HI}{\sqrt{HI' + HI}}.
+\end{equation}
+We refer to \cite{Thas2012} for the motivation of this model. 
+
+
+Because the right hand side of model (\ref{pim3}) is not of the form  $g^{-1}[(\bX' - \bX)^T \bbeta]$, we need to specify this explicitly in the formula statement upon using functions \texttt
+{L()} and \texttt{R()} to indicate $HI$ and $HI'$ respectively. Here \texttt{L()} stands for the covariate associated with the outcome at the left-hand side of the $\leqs$-sign in $\prob{Y\leqs Y' \mid \bX, \bX'}$, so $\bX$. On the other hand, \texttt{R()} stands for the covariate associated with the outcome at the right-hand side of the $\leqs$-sign in $\prob{Y\leqs Y' \mid \bX, \bX'}$, so $\bX'$.
+
+
+To improve readability, we shorten the names of the variables in the dataset. 
+<<>>=
+names(EngelData) <- c("HI", "FE")
+form <- FE ~ I( (R(HI) - L(HI))/sqrt(R(HI) + L(HI)) )
+pim3 <- pim(formula = form, data = EngelData)
+coef(pim3)				
+@
+Similar as in \texttt{glm()} the \texttt{I()} function must be used in the formula statement to include mathematical operations. 
+
+It follows that $\hat{\beta} = \Sexpr{round(coef(pim3)	,2)}$ for model (\ref{pim3}). We briefly illustrate the interpretation. 
+If the household income is $500$ Belgian francs, the probability of larger food expenditure with a household income of $600$ Belgian francs is estimated as: 
+ $$
+ \hatprob{FE \leqs FE'  \mid HI = 500, HI'  = 600} = \text{expit}\left[ \Sexpr{round(coef(pim3),2)} \frac{100}{\sqrt{500 + 600}}\right]= \Sexpr{round(plogis(coef(pim3)*100/sqrt(1100)),2)}.
+$$
+If we compare household incomes of $2000$ and $2100$ (for which the difference is also 100 Belgian francs), this effect decreases to:
+$$
+ \hatprob{FE \leqs FE'  \mid HI = 2000, HI'  = 2100} = \text{expit}\left[ \Sexpr{round(coef(pim3),2)} \frac{100}{\sqrt{2000 + 2100}}\right]= \Sexpr{round(plogis(coef(pim3)*100/sqrt(4100)),2)}.
+$$
+
+
+\subsection{Restricted comparisons of the regressors}\label{S_restrcomp}
+
+To illustrate how the $\mathcal{X}_n$ option of model (\ref{GeneralPIM}) can be implemented, we reconsider the Childhood Respiratory Disease Study (CRDS) of Section \ref{S_crds}. Suppose, for the sake of illustration, that one is only interested in the probability:
+$$
+\prob{FEV \leqs FEV' \mid SMOKE = 0,  SMOKE' = 1, AGE = AGE'},
+$$
+i.e. one wants to quantify the association between the smoking status and the pulmonary function while keeping the age fixed. Consider the PIM
+\begin{equation}\label{pim1restricted}
+\prob{FEV \leqs FEV' } = \text{expit}[\gamma_1 + \gamma_2(AGE' - AGE)],  
+\end{equation}
+where $\mathcal{X}_n$ denotes the set of pairs of children for which the first is a non-smoker, and the second is a smoker, i.e.  
+\begin{equation}\label{CalX}
+\mathcal{X}_n = \Bigl\{\left(\{SMOKE, AGE\}, \{SMOKE', AGE'\}\right) \mid SMOKE = 0,  SMOKE' = 1\Bigr\}.
+\end{equation}
+Note that PIM (\ref{pim1restricted}) is a submodel of PIM (\ref{EqPIM1}), but is computationally less demanding since less children have to be compared. We refer to \cite{Thas2012} for more details on $\mathcal{X}_n$ and the estimation of PIMs. 
+
+We start by construction $\mathcal{X}_n$ given by (\ref{EqPIM1}). 
+<<>>=
+id.nonsmokers <- which(FEVData$Smoke == 0)
+id.smokers <- which(FEVData$Smoke == 1)
+compare <- expand.grid(id.nonsmokers, id.smokers)
+@
+Next with fit the PIM (\ref{pim1restricted}) and give in $\mathcal{X}_n$ via the option \texttt{compare}:
+<<>>=
+pim4 <- pim(formula = FEV ~ +1 + Age, data = FEVData, compare = compare)
+summary(pim4)
+@
+Note that we explicitly have to specify the intercept. It follows that $\hat{\gamma}_1 = \Sexpr{round(coef(pim4)[1],2)}$ and $\hat{\gamma}_2 = \Sexpr{round(coef(pim4)[2],2)}$.
+
+
+
+
+
+\section{Relationship to rank tests}
+
+In this section we illustrate how several rank tests can be implemented and extended through the \texttt{pim} package. The content of this section is worked out in the appendix of \cite{DeNeveThas2015} using a previous, but no longer compatible, version of the package. 
+In \cite{DeNeveThas2015} it is explained how the PIM can be related to well known rank tests in factorial designs and how it can be used to construct new rank tests. We start by introducing the notation used in \cite{DeNeveThas2015}. For the factorial design with a single factor and a blocking factor we write $\bX = (X, B)$, where $X$ is a factor referring to groups or treatments of interest, and $B$ is a blocking factor. Without loss of generality we say that $X$ takes values $1, \ldots, K$, and $B$ takes values $1,\ldots,L$. The number of replicates for $X=k$ and $B=l$ is denoted by $n_{kl}$ and the total sample size is given by $N=\sum_{k=1}^K \sum_{l=1}^L n_{kl}$. Let $F_{kl}$ denote the distribution function of $Y$ given $X=k$ and $B=l$. In the absence of blocks, set $B = 1$ and we use the simplified notation $n_k$ for the number of replicates for $X = k$ and $F_k$ for the distribution function of $Y$ given $X=k$. 
+
+Sometimes it will be convenient to work with the classical ANOVA notation. Throughout the vignette it will be clear from the context which notation is used. In particular, for $\bX = (X, B)$, $Y_{kl}$ denotes a random response variable in treatment group $k=1,\ldots, K$ and block $l=1,\ldots, L$. The index $l$ becomes obsolete in the absence of blocks. We use $Y_{.l}$ to denote the random response variable whose distribution is marginalized over the treatment groups, but still conditional on block $l$. To distinguish between the notation and model as in (\ref{GeneralPIM}) and the ANOVA form, we refer to the former as the {\em regression model}, whereas models with the ANOVA notation will be referred to as the {\em ANOVA model}. Just like with classical linear regression models, the estimation of the parameters requires that ANOVA models are translated into regression models with dummy regressors for the coding of the factors.
+
+\subsection{Connection with the Kruskal--Wallis rank test}
+
+As a first model we define the {\em marginal PIM} for the $K$-sample layout in the absence of blocks. It is marginal in the sense that we only condition on one treatment within the PI, i.e. $\prob{Y_i \leqs Y_j \mid X_j}$. This PI refers to the distribution of the response of observation $j$ conditional on its regressor, i.e. $Y_j \mid X_j$, and the marginal response distribution of an observation $i$, i.e. $Y_i$. 
+In terms of the ANOVA notation and if $X_j = k$, this becomes $\prob{Y_{.}\leqs Y_{k}}$, with $Y_k$ a random response with distribution $F_k$ and $Y_.$ a random response with distribution $F_. = \sum_{k=1}^K \lambda_k F_k$ with $\lambda_k = \lim_{N \rightarrow \infty} n_k/N$ where we assume $\lambda_k > 0$. Consider the marginal PIM in ANOVA form,
+\begin{equation}\label{marginalPIM_anova}
+\prob{Y_{.} \leqs Y_{k}} = \alpha_{k} .
+\end{equation}
+The interpretation of $\alpha_k$ is immediate: it is the probability that a random observation of group $k$ exceeds a random observation of the marginal distribution. The corresponding PIM regression model is obtained upon defining 
+\begin{equation}
+  \label{Eq_ZForKSample}
+ \bZ_{ij}^T=\Bigl(\I{X_j = 1}, \ldots, \I{X_j = K}\Bigr), 
+\end{equation} 
+for all pairs of regressors $(X_i,X_j)$. Let $\mb{\alpha}^T=(\alpha_1,\ldots, \alpha_K)$. Model (\ref{marginalPIM_anova}) now becomes
+\begin{equation}\label{marginalPIMNoBlocks}
+\prob{Y_i \leqs Y_j \mid X_j} = \bZ_{ij}^T \mb{\alpha}, 
+\end{equation}
+with
+$\mathcal{X}_n = \left\{ (X_i,X_j) \mid i,j=1,\ldots,N \right\}$, i.e. we consider all $N^2$ pairs of observations. 
+
+We illustrate how model (\ref{marginalPIMNoBlocks}) can fitted to  a subset of the chick weight dataset as described in \cite{CrowderHand1990}. Chicks are randomly allocated to one of four diets: a normal diet (referred to as diet $1$) or one of three specific diets with respectively $10\%$, $20\%$ or $40\%$ protein replacement (referred to as diets $2$, $3$ or $4$, respectively). The weights (in gram) of the chicks are measured on alternate days for the first three weeks after birth, but we only look at the weight measured at day 6 together with the weight at baseline.
+
+
+<<>>=
+data(ChickWeight)
+Data <- subset(ChickWeight, Time == 6)[,-2]
+Data$baseline <- subset(ChickWeight, Time == 0)$weight[
+is.element(subset(ChickWeight, Time == 0)$Chick, Data$Chick)]
+head(Data)
+@
+Model  (\ref{marginalPIMNoBlocks}) is fitted via:
+<<>>=
+pim.score <- pim(formula = weight ~ R(Diet) - 1, data = Data,
+                 compare = "all", 
+                 link = "identity",
+                 vcov.estim = score.vcov)
+summary(pim.score)
+@
+The option \texttt{compare = "all"} indicates that all $N^2$ comparisons should be considered as defined by $\mathcal{X}_n$ in (\ref{marginalPIMNoBlocks}) and \texttt{vcov.estim = score.vcov} indicates that score variance-covariance matrix should be computed (i.e. the variance-covariance under the null-hypothesis $H_0: F_1 = \ldots = F_K$). The option \texttt{link = "identity"} indicates that we fit a PIM with identity link function. 
+
+The parameters in model (\ref{marginalPIM_anova}) are estimated by $\hat{\alpha}_1 = \Sexpr{round(coef(pim.score)[1], 2)}$, $\hat{\alpha}_2 = \Sexpr{round(coef(pim.score)[2], 2)}$, $\hat{\alpha}_3 = \Sexpr{round(coef(pim.score)[3], 2)}$ and $\hat{\alpha}_4 = \Sexpr{round(coef(pim.score)[4], 2)}$. Note that the p-values are associated with $H_0: \alpha_i = 0$ which are not relevant, since they correspond to $H_0:\prob{Y_{.} \leqs Y_{i}} = 0$. More relevant hypotheses are $H_0: \alpha_i = 0.5$ and the corresponding p-values are obtained via:
+<<>>=
+z.score <- (coef(pim.score) - 0.5)/sqrt(diag(vcov(pim.score)))
+1 - pchisq(z.score^2, 1)
+@
+
+The connection with the Kruskal--Wallis rank test is established as follows (we refer to \cite{DeNeveThas2015} for details):
+<<>>=
+library(MASS)
+t(coef(pim.score) - 0.5)%*%ginv(vcov(pim.score))%*%c(coef(pim.score) - 0.5)
+kruskal.test(weight ~ Diet, data = Data)$stat
+@
+The differences in both test statistics is due to ties. A Wald-type Kruskal--Wallis test statistic (using a sandwich estimator for the variance-covariance matrix of $\hat{\mb{\alpha}}$) can be obtained with the option \texttt{vcov.estim = sandwich.vcov}:
+<<>>=
+pim.wald <- pim(formula = weight ~ R(Diet) - 1, data = Data,
+                 compare = "all", 
+                 link = "identity",
+                 vcov.estim = sandwich.vcov)
+t(coef(pim.wald) - 0.5)%*%ginv(vcov(pim.wald))%*%c(coef(pim.wald) - 0.5)
+@
+
+
+\subsection{Connection with the Jonckheere--Terpstra rank test}
+
+
+The following PIM establishes a connection with the Jonckheere--Terpstra rank test. 
+$$
+\prob{Y_i \leqs Y_j \mid X_i, X_j} = 0.5 + \alpha[I(X_i < X_j) - I(X_i > X_j)],
+$$
+with indicator function $I(A) = 1$ if $A$ is true and zero otherwise. This model can be fitted employing the \texttt{R()} and \texttt{L()} arguments in the formula statement. We first order the diets. 
+<<>>=
+Data$Diet <- factor(Data$Diet, ordered = TRUE)
+JT.formula <- weight ~ I((L(Diet) < R(Diet)) - (L(Diet) > R(Diet))) + 1
+pim.JT <- pim(formula = JT.formula, data = Data, 
+              link = "identity", vcov.estim = score.vcov,
+              compare = "all")
+summary(pim.JT)
+@
+It follows that $\prob{Y_i \leqs Y_j \mid X_i < X_j}$ is estimated by $0.5 + \hat{\alpha} = \Sexpr{round(sum( coef(pim.JT)),2)}$.
+
+
+\subsection{Connection with the Friedman rank test}
+
+The marginal PIM can be extended to block designs. In ANOVA notation this becomes
+\begin{equation}\label{marginalPIM_anova_blocks}
+\prob{Y_{.l} \leqs Y_{kl}} = \alpha_{k} ,
+\end{equation}
+where $k=1,\ldots, K$ refers to the treatment group and $l=1,\ldots, L$ to the block. 
+The interpretation of $\alpha_k$ is immediate: it is the probability that a random observation of group $k$ exceeds a random observation of the marginal distribution \emph{within the same block}. %The corresponding PIM regression model is obtained  with
+Let $\bZ_{ij}$ as in (\ref{Eq_ZForKSample}) and $\mb{\alpha}$ as before. Model (\ref{marginalPIM_anova_blocks}) in regression notation becomes
+\begin{equation}\label{marginalPIM}
+\prob{Y_i \leqs Y_j \mid B_i, X_j, B_j} = \bZ_{ij}^T \mb{\alpha}, %=\sum_{l=1}^K \alpha_{l} \I{X_j = l}
+\end{equation}
+which is now only defined for $(\bX_i,\bX_j) \in \mathcal{X}_n = \left\{ (\bX_i,\bX_j) \mid B_i = B_j, i,j = 1,\ldots,N \right\}$, i.e. we restrict the PI to comparisons within blocks. We refer to \cite{DeNeveThas2015} for more details. 
+
+
+To illustrate the relationship with the Friedman rank test, we consider the warpbreaks data where we consider tension as a block. This data set gives the number of warp breaks per loom, where a loom corresponds to a fixed length of yarn, we refer to the help page of \texttt{warpbreaks} for more information. The outcome denotes the number of breaks, while the factor of interest the type of wool. The levels of tension are considered as blocks.  
+<<>>=
+# modify data for the sake of illustration
+wb <- aggregate(warpbreaks$breaks,
+                by = list(w = warpbreaks$wool,
+                          t = warpbreaks$tension),
+                FUN = mean)
+colnames(wb) = c("wool", "tension", "breaks")         
+# all possible comparisons       
+comp <- expand.grid(1:nrow(wb), 1:nrow(wb))
+# restrict comparisons within block
+compare <- comp[wb$tension[comp[,1]] == wb$tension[comp[,2]],] 
+pim.F <- pim(breaks ~ wool, data = wb, compare = compare, 
+link = "identity",  vcov.estim = score.vcov)
+summary(pim.F)
+friedman.test(breaks ~ wool | tension, data = wb)
+@
+
+
+
+
+\section{Remarks}\label{S_conclusion}
+
+
+
+Note that for a sample size of $n$ a total $n(n-1)/2$ comparisons are considered. Consequently for large sample sizes the function goes quite slow.  Bugs/comments/suggestions are welcome at \href{mailto:Jan.DeNeve@UGent.be}{Jan.DeNeve@UGent.be} or \href{mailto:Joris.Meys@UGent.be}{Joris.Meys@UGent.be}.
+
+
+\bibliographystyle{plainnat}
+\bibliography{PIMVignette}
+
+\end{document}
