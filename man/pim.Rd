@@ -22,13 +22,13 @@ the variables in the model. Objects that can be coerced by
 used link function. Possible values are "logit", "probit" and "identity".
 The default is "logit".}
 
-\item{compare}{a character vector with a single value that describes how the 
-model compares observations. It can take the values "unique" or "all". 
-Alternatively you can pass a matrix with two columns. 
-Each row represents the rownumbers in the original data frame that 
+\item{compare}{a character vector with a single value that describes how the
+model compares observations. It can take the values "unique" or "all".
+Alternatively you can pass a matrix with two columns.
+Each row represents the rownumbers in the original data frame that
 should be compared to eachother. See Details.}
 
-\item{model}{a single character value with possible values "difference" 
+\item{model}{a single character value with possible values "difference"
 (the default), "marginal", "regular" or "customized". If the formula indicates
 a customized model (by the use of \code{\link{L}()} or \code{\link{R}()}),
 this parameter is set automatically to "customized". Currently, only the
@@ -58,7 +58,7 @@ interface allows you to specify a wide variety of different models.
 }
 \details{
 PIMs are based on a set of pseudo-observations constructed from the
-comparison between a range of possible combinations of 2 observations. 
+comparison between a range of possible combinations of 2 observations.
 We call the set of pseudo observations \emph{poset} in the context
 of this package.
 
@@ -66,16 +66,16 @@ By default, this poset takes every unique combination of 2 observations
 (\code{compare = "unique"}). You can either use a character value, or
 use a matrix or list to identify the set of observation pairs that have to be
 used as pseudo-observations. Note that the matrix and list should
-be either nameless, or have the (col)names 'L' and 'R'. If any other 
+be either nameless, or have the (col)names 'L' and 'R'. If any other
 names are used, these are ignored and the first column/element
 is considered to be 'L'. See also
 \code{\link{new.pim.poset}}.
-  
+
 It's possible to store the model matrix and psuedo responses in the
-resulting object. By default this is not done 
+resulting object. By default this is not done
 (\code{keep.data = FALSE}) as this is less burden on the memory and
 the \code{\link{pim.formula}} object contains all information to
-reconstruct both the model matrix and the pseudo responses. 
+reconstruct both the model matrix and the pseudo responses.
 If either the model matrix or the pseudo responses are needed for
 further calculations, setting \code{keep.data} to \code{TRUE} might
 reduce calculation time for these further calculations.
@@ -88,23 +88,23 @@ difference: a PIM has by default no intercept. To add an intercept, use
 \code{+ 1} in the formula.
 
 Next to this, you can use the functions \code{\link{L}} and \code{\link{R}}
-in a formula to indicate which part of the poset you refer to. Remember a 
-poset is essentially a matrix-like object with indices refering to the 
+in a formula to indicate which part of the poset you refer to. Remember a
+poset is essentially a matrix-like object with indices refering to the
 pseudo-observations. Using \code{L()} and \code{R()} you can define
 exactly how the pseudo-observations fit in the model. Keep in mind that
 any calculation done with these functions, has to be wrapped in a call
 to \code{I()}, just like you would do in any other formula interface.
 
 You don't have to specify the model though. If you choose the option
-\code{model = 'difference'}, every variable in the formula will be 
+\code{model = 'difference'}, every variable in the formula will be
 interpreted as \code{I(R(x) - L(x))}. If you use the option
 \code{model = 'marginal'}, every variable will be interpreted as
-\code{R(X)}. 
+\code{R(X)}.
 
-If you don't specify any special function (i.e. \code{\link{L}}, 
+If you don't specify any special function (i.e. \code{\link{L}},
 \code{\link{R}}, \code{\link{P}} or \code{\link{PO}}),
 the lefthand side of the formula is defined as \code{PO(y)}. The function
-\code{\link{PO}} calculates pseudo observations; it is 1 
+\code{\link{PO}} calculates pseudo observations; it is 1
 if the value of the dependent variable for the observation
 from the L-poset is smaller than, 0 if it is larger than and 0.5 if
 it is equal to the value for value from the R-poset (see also \code{\link{PO}})
@@ -125,7 +125,7 @@ Model2 <- pim(foodexp ~ income + 1, data=EngelData,
    xscalm = 'auto')
 
 # A marginal model
-# It makes sense to use the identity link in combination with the 
+# It makes sense to use the identity link in combination with the
 # score estimator for the variance-covariance matrix
 data('DysData')
 Model3 <- pim(SPC_D2 ~ out, data = DysData,
@@ -141,7 +141,7 @@ Model6 <- pim(P(L(out) != R(out)) ~ I(L(Chemo) != R(Chemo)),
 
 # Implementation of the friedman test in the context of a pim
 # warpbreaks data where we consider tension as a block
-# To do so, you provide the argument compare with a custom 
+# To do so, you provide the argument compare with a custom
 # set of comparisons
 data(warpbreaks)
 wb <- aggregate(warpbreaks$breaks,
@@ -156,7 +156,7 @@ friedman.test(x ~ w | t, data = wb)
 \dontrun{
 # This illustrates how a standard model is actually built in a pim contex
 Model4 <- pim(PO(L(Height),R(Height)) ~ I(R(Age) - L(Age)) + I(R(Sex) - L(Sex)),
-data=FEVData, 
+data=FEVData,
 estim = "estimator.BB")
 # is the same as
 Model5 <- pim(Height ~ Age + Sex, data = FEVData, estim = "estimator.BB")
@@ -168,7 +168,7 @@ summary(Model5)
 \code{\link{pim-class}} for more information on the returned
 object, \code{\link{pim.fit}} for more information on the fitting
 itself,  \code{\link{pim-getters}}, \code{\link{coef}}, \code{\link{confint}},
-\code{\link{vcov}} etc  for how to extract information like coefficients, 
+\code{\link{vcov}} etc  for how to extract information like coefficients,
 variance-covariance matrix, ...,
 \code{\link{summary}} for some tests on the coefficients.
 }

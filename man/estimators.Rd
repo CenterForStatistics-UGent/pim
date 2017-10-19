@@ -18,7 +18,7 @@ estimator.BB(x, y, start = rep(0, ncol(x)), link = "logit",
   TRUE)), ...)
 }
 \arguments{
-\item{x}{a model matrix for the respective pim model. See also 
+\item{x}{a model matrix for the respective pim model. See also
 \code{\link{model.matrix}}.}
 
 \item{y}{a vector with the response for the respective pim model.}
@@ -27,23 +27,23 @@ estimator.BB(x, y, start = rep(0, ncol(x)), link = "logit",
 the starting values for the algorithm}
 
 \item{link}{a character vector describing the link function. This
-link function is used to adapt the calculation depending on the 
+link function is used to adapt the calculation depending on the
 link used in the fitting process.}
 
 \item{construct}{a function that creates the score function
 used by either \code{\link{nleqslv}} or
-\code{\link{BBsolve}} for numerical optimization. See Details. 
-The estimator \code{estimator.glm} doesn't allow f
-or specification of your own score function.}
+\code{\link{BBsolve}} for numerical optimization. See Details.
+The estimator \code{estimator.glm} doesn't allow
+for specification of your own score function.}
 
 \item{...}{extra arguments passed down to the actual solver function. See details.}
 
-\item{method}{A vector of integers specifying which 
+\item{method}{A vector of integers specifying which
 Barzilai-Borwein steplengths should be used in a consecutive
 manner. The methods will be used in the order specified.
 More information on the help page of \code{\link{BBsolve}}.}
 
-\item{control}{a list with extra controlling parameters for 
+\item{control}{a list with extra controlling parameters for
 \code{BBsolve}. See the help page of \code{\link{BBsolve}} for
 more information.}
 }
@@ -56,27 +56,28 @@ This page documents different possibilities for solving the score function
 of a probabilistic index model or \code{\link{pim}}. All functions mentioned on this page, are essentially wrappers around different solver functions.
 }
 \details{
-All functions share the same three arguments, being the design matrix \code{x}, 
+All functions share the same three arguments, being the design matrix \code{x},
 the response vector \code{y} and the start values for the estimating function.
-If you follow the same principles, you can write your own wrapper function 
+If you follow the same principles, you can write your own wrapper function
 for any solver function of your choice.
 
 The solvers \code{estimator.nleqslv} and \code{estimator.BBsolve}
 allow for specification of your own score function as well. For
-this, you have the possibility to construct a function that takes three arguments
+this, you have the possibility to provide a constructor function
+that takes three arguments
 \describe{
 \item{x}{The model matrix}
 \item{y}{the vector with pseudo-observations}
 \item{link}{a character vector specifying the link}
 }
 The function should return a function that can be used in
-either \code{\link[nleqslv]{nleqslv}} or 
-\code{\link[BB]{BBsolve}}. If you don't specify this construct function, the package
-contains the function \code{\link{CreateScoreFun}} to do
-this for you.
+either \code{\link[nleqslv]{nleqslv}} or
+\code{\link[BB]{BBsolve}}. If you don't specify this constructor function,
+the package will use the constructor function \code{\link{CreateScoreFun}}
+to provide the score function.
 }
 \section{WARNING}{
- If you specify your own score function 
+ If you specify your own score function
 without changing the estimators for the variance-covariance
 matrix, this vcov matrix will be blatantly wrong!!!!!
 }
@@ -95,7 +96,7 @@ data(ChickWeight)
 themodel <- pim(weight ~ Diet, data = ChickWeight,
 construct = myconstruct)
 
-# compare coefficients to 
+# compare coefficients to
 themodel2 <- pim(weight ~ Diet, data = ChickWeight,
                 link = "identity")
 coef(themodel)
