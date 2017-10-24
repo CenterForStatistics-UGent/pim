@@ -2,17 +2,23 @@
 % Please edit documentation in R/CreateScoreFun.R
 \name{CreateScoreFun}
 \alias{CreateScoreFun}
+\alias{CreateBRScoreFun}
 \title{Create a score function for use in a pim.}
 \usage{
-CreateScoreFun(Z, Y, link = c("probit", "logit", "identity"), W = NULL)
+CreateScoreFun(Z, Y, link = "probit", W = NULL)
+
+CreateBRScoreFun(Z, Y, link = "probit", W = NULL)
 }
 \arguments{
 \item{Z}{the model matrix of pseudo-observations}
 
 \item{Y}{a vector with the response of the pseudo-observations}
 
-\item{link}{a character vector indicating the link function 
-to be used.}
+\item{link}{a character vector indicating the link function
+to be used. For \code{CreateScoreFun} this can be
+\code{"probit"}, \code{"logit"} or \code{"identity"}. For the
+function \code{CreateBRScoreFun} only the options \code{"probit"}
+and \code{"logit"} are available.}
 
 \item{W}{a vector with weights.}
 }
@@ -21,8 +27,10 @@ a function used for estimating the coefficients by
 the estimator functions.
 }
 \description{
-This function creates a suitable score function for the fitting 
-process of a probabilistic index model.
+These functions create a suitable score function for the fitting
+process of a probabilistic index model. For a normal fit you would
+use the function \code{CreateScoreFun}. A bias-reduced pim is
+fitted using the function \code{CreateBRScoreFun}.
 }
 \section{NOTE}{
  This function is not exported.

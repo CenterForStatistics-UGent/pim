@@ -7,7 +7,7 @@
 pim(formula, data, link = c("logit", "probit", "identity"), compare = if
   (model == "marginal") "all" else "unique", model = c("difference",
   "marginal", "regular", "customized"), na.action = getOption("na.action"),
-  weights = NULL, keep.data = FALSE, ...)
+  weights = NULL, keep.data = FALSE, bias.reduced = FALSE, ...)
 }
 \arguments{
 \item{formula}{An object of class \code{\link{formula}} (or one that
@@ -42,6 +42,9 @@ contains NAs. The default is set by the \code{na.action} setting of
 
 \item{keep.data}{a logical value indicating whether the model
 matrix should be saved in the object. Defaults to \code{FALSE}. See Details.}
+
+\item{bias.reduced}{a logical value indicating whether or not the
+bias reduced version of the pim should be fitted.}
 
 \item{...}{extra parameters sent to \code{\link{pim.fit}}}
 }
