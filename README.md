@@ -7,9 +7,13 @@ pim package
 Overview
 --------
 
-pim is a package providing probabilistix index models in R, and is available on CRAN. The stable release can be installed using `install.packages("pim")`. The development version in this repo can be installed using the `devtools` package.
+pim is a package providing probabilistix index models in R, and is available on CRAN. The stable release can be installed using `install.packages("pim")`. The updated stable version in this repo can be installed using the `devtools` package.
 
     devtools::install_github("CenterForStatistics-UGent/pim")
+
+If you want to install the development version in the branch `devel`, you can use:
+
+    devtools::install_github("CenterForStatistics-UGent/pim", ref = "devel")
 
 Older versions
 --------------
