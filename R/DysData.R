@@ -7,7 +7,8 @@
 #' polymorphisms (SNPs) in a series of different genes. The dataset in
 #' this package contains only the data for SNPs in the gene XRCC1. This data is published before by \href{https://doi.org/10.1016/j.radonc.2013.03.021}{De Ruyck et al (2013)}.
 #'
-#'These are the columns and their meanings
+#'
+#' @format A data frame with 188 observations and 5 variables:
 #' \itemize{
 #' 	\item{\code{out}} intensity of the dysphagia on a scale of 1 to 4,
 #' 	with 4 being severe. Scoring is done using CTCAE.
@@ -17,7 +18,6 @@
 #' 	\item{\code{SNP_XRCC1__77TC}} 1 if \code{SNP_XRCC1__77} is "TC", 0 otherwise
 #' }
 #'
-#' @format A data frame with 188 observations and 5 variables
 #' @source De Ruyck et al, 2013. A predictive model for dysphagia following
 #' IMRT for head and neck cancer: Introduction of the
 #' EMLasso technique. \emph{Radiotherapy and Oncology 107, pp 295-299}.
