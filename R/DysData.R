@@ -14,7 +14,7 @@
 #' 	with 4 being severe. Scoring is done using CTCAE.
 #' 	\item{\code{Chemo}} Whether the patient underwent chemotherapy ("ja" is yes, "nee" is no)
 #' 	\item{\code{SNP_XRCC1__77}} Genotype of SNP for XRCC1. This factor has three levels: "TT", "TC" and "CC"
-#' 	\item{\code{SPC_D2}} Dose of radiation that reached 2% of the SPC muscle
+#' 	\item{\code{SPC_D2}} Dose of radiation that reached 2\% of the SPC muscle
 #' 	\item{\code{SNP_XRCC1__77TC}} 1 if \code{SNP_XRCC1__77} is "TC", 0 otherwise
 #' }
 #'
