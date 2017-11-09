@@ -90,6 +90,9 @@
 #'
 #' @param weights Currently not implemented.
 #'
+#' @param bias.reduced a logical value indicating whether or not the
+#' bias reduced version of the pim should be fitted.
+#'
 #' @param ... extra parameters sent to \code{\link{pim.fit}}
 #'
 #' @return An object of class \code{pim}. See \code{\link{pim-class}}
@@ -165,6 +168,7 @@ pim <- function(formula,
                 na.action = getOption("na.action"),
                 weights=NULL,
                 keep.data = FALSE,
+                bias.reduced = FALSE,
                 ...
                 ){
 
@@ -215,7 +219,8 @@ pim <- function(formula,
   y <- eval(lhs(ff), envir=penv)
 
   res <- pim.fit(x, y, link, weights = weights,
-                 penv = as.environment(penv@poset), ...)
+                 penv = as.environment(penv@poset),
+                 bias.reduced = bias.reduced, ...)
   # as.environment will only pass the environment of the penv to avoid
   # copying the whole thing. makes it easier to get the poset out
 
