@@ -169,12 +169,7 @@ print.pim.summary <- function(x, digits = max(3L, getOption("digits") - 3L),...)
   cat("\nType: ", model(x),
       "\nLink: ", link(x),"\n\n")
 
-  Tab <- cbind(
-    Estimate = coef(x),
-    "Std. Error" = x@se,
-    "z value" = x@zval,
-    "Pr(>|z|)" = x@pr
-  )
+  Tab <- coef(x)
   cat("\n")
   printCoefmat(Tab, digits = digits)
 
@@ -184,7 +179,7 @@ print.pim.summary <- function(x, digits = max(3L, getOption("digits") - 3L),...)
     thenames <- rownames(Tab)
     cat("\nNull hypotheses:\n")
     for(i in seq_along(x@h0)){
-      cat(" b_",thenames[i]," = ",x@h0[i],"\n", sep="")
+      cat(" beta_",thenames[i]," = ",x@h0[i],"\n", sep="")
     }
     cat("\n")
   }
