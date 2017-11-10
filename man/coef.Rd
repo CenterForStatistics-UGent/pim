@@ -19,7 +19,9 @@ coef(object, ...)
 \item{...}{currently ignored.}
 }
 \value{
-a named vector with the coefficients.
+a named vector with the coefficients. Or, in case of a
+\code{pim.summary} object, a matrix with the coefficients, standard
+errors, z values and probabilities.
 }
 \description{
 This function works like \code{\link[stats]{coef}} from the \code{stats}
