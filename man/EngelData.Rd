@@ -3,16 +3,24 @@
 \docType{data}
 \name{EngelData}
 \alias{EngelData}
-\title{This is the engel data}
-\description{
-This is the engel data
-}
-\details{
-These are the columns and their meanings
+\title{Engel's food expenditure data}
+\format{A data frame of 235 observations and 2 variables:
 \itemize{
 	\item{\code{foodexp}} Food expenditure (FE)
 	\item{\code{income}} Household income (HI)
+}}
+\source{
+Koenker, R. and Bassett, G (1982) Robust Tests of Heteroscedasticity
+based on Regression Quantiles; \emph{Econometrica 50, 43-61}.
 }
+\usage{
+EngelData
+}
+\description{
+This data originates from Koenker and Bassett (1982). It is a regression
+data set consisting of 235 observations on income and expenditure on
+food for Belgian working class households. The dataset is copied from
+the \href{}{quantreg} package.
 }
 \keyword{data}
 \keyword{engel}
