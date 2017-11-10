@@ -9,7 +9,7 @@
 \usage{
 summary(object, ...)
 
-\S4method{summary}{pim}(object, h0 = 0, ...)
+\S4method{summary}{pim}(object, h0 = NULL, ...)
 }
 \arguments{
 \item{object}{an object of the class pim.}
@@ -17,7 +17,7 @@ summary(object, ...)
 \item{...}{arguments passed to other methods. Currently ignored.}
 
 \item{h0}{a numeric value or a vector as long as the number of coefficients
-with the value that defines the null hypothesis to test against}
+with the value that defines the null hypothesis to test against. See Details.}
 }
 \value{
 a \code{\link{pim.summary}} object
@@ -25,6 +25,13 @@ a \code{\link{pim.summary}} object
 \description{
 The function \code{\link[base]{summary}} is a generic function. We provide
 a method for objects of the \code{\link{pim-class}}.
+}
+\details{
+The null hypothesis used in these tests is set automatically in the case
+\code{h0 = NULL}. By default it is set to 0 for all parameters, but
+this might not always make sense. In the case of an identity link and
+a single binary predictor variable, the estimate should be tested
+against 0.5 instead of 0.
 }
 \examples{
 data(FEVData)
