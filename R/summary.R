@@ -32,11 +32,14 @@ summary.pim <- function(object, h0 = NULL,
   coefs <- coef(object)
 
   if(is.null(h0)){
-    h0 = 0
-    if(link(object) == "identity")
+    if(link(object) == "identity"){
       warning(paste("Null hypothesis is set to 0, but link is identity.",
                     "The performed tests may be meaningless."))
-  }
+      h0 = 0 # TODO: set h0 correctly. When 0.5?
+    }else {
+      h0 = 0
+    } # END ifelse link == identity
+  } # END if is null
 
   se <- sqrt(diag(vcov(object)))
   zval <- (coefs - h0) / se
