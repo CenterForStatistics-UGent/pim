@@ -28,7 +28,7 @@
 #' matrix, this vcov matrix will be blatantly wrong!!!!!
 #'
 #'
-#' @seealso \code{\link[nleqslv]{nleqslv}}, \code{\link[stats]{glm.fit}},
+#' @seealso \code{\link[nleqslv]{nleqslv}}, \code{\link[stats:glm]{glm.fit}},
 #' \code{\link[BB]{BBsolve}} for more information on the fitting
 #' algorithms.
 #'

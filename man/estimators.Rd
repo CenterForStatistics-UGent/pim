@@ -106,7 +106,7 @@ coef(themodel2)
 # You have to specify the correct vcov estimator as well
 }
 \seealso{
-\code{\link[nleqslv]{nleqslv}}, \code{\link[stats]{glm.fit}},
+\code{\link[nleqslv]{nleqslv}}, \code{\link[stats:glm]{glm.fit}},
 \code{\link[BB]{BBsolve}} for more information on the fitting
 algorithms.
 
