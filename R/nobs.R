@@ -36,9 +36,7 @@
 #'
 #' @include pim.environment-class.R
 #' @export
-#' @name nobs
-
-#' @rdname  nobs
+#' @rdname nobs
 setMethod("nobs",
           signature = "pim.environment",
           function(object){
