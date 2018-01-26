@@ -57,6 +57,9 @@ Model <- pim(FEV~ Smoke*Sex , data=FEVData)
 
 thesummary <- summary(Model)
 thesummary[,2:3]
-thesummary["Sex"]
+thesummary["Sex",]
 
+}
+\seealso{
+\code{\link{as.matrix.pim.summary}} for conversion to a matrix
 }
