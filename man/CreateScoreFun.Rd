@@ -33,6 +33,12 @@ use the function \code{CreateScoreFun}. A bias-reduced pim is
 fitted using the function \code{CreateBRScoreFun}.
 }
 \section{NOTE}{
- This function is not exported.
+ This function is intended for internal use and
+hence not exported.
 }
 
+\seealso{
+\code{\link{Estimators}} for more information on how to
+use your own score functions and in which context this function
+is used.
+}

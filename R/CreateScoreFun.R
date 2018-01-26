@@ -17,7 +17,13 @@
 #' @return a function used for estimating the coefficients by
 #' the estimator functions.
 #'
-#' @section NOTE: This function is not exported.
+#' @section NOTE: This function is intended for internal use and
+#' hence not exported.
+#'
+#' @seealso \code{\link{Estimators}} for more information on how to
+#' use your own score functions and in which context this function
+#' is used.
+#'
 #' @rdname CreateScoreFun
 
 CreateScoreFun <-function(Z,Y,
