@@ -58,6 +58,7 @@ Model <- pim(FEV~ Smoke*Sex , data=FEVData)
 thesummary <- summary(Model)
 thesummary[,2:3]
 thesummary["Sex",]
+thesummary[8]
 
 }
 \seealso{

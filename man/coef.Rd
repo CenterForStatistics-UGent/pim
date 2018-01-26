@@ -25,7 +25,7 @@ errors, z values and probabilities.
 }
 \description{
 This function works like \code{\link[stats]{coef}} from the \code{stats}
-package. It extracts the coefficients from the objects.
+package. It extracts the coefficients from the object.
 }
 \examples{
 data("FEVData")

@@ -17,6 +17,7 @@
 #' thesummary <- summary(Model)
 #' thesummary[,2:3]
 #' thesummary["Sex",]
+#' thesummary[8]
 #'
 #' @docType methods
 #' @include pim.summary-class.R
@@ -26,11 +27,7 @@
 #' @export
 setMethod("[",
           "pim.summary",
-          function(x,i,j,drop = TRUE){
-            if(missing(j)){
-              as.matrix(x)[i,drop = drop]
-            } else {
-              as.matrix(x)[i,j,drop = drop]
-            }
-
+          function(x,i,j ,drop = TRUE){
+            x <- as.matrix(x)
+            callNextMethod()
           })

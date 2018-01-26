@@ -30,12 +30,15 @@
 setGeneric("as.matrix")
 
 as.matrix.pim.summary <- function(x, ...){
-  cbind(
-    Estimate = coef(x),
-    "Std. Error" = x@se,
-    "z value" = x@zval,
-    "Pr(>|z|)" = x@pr
-  )
+  out <- cbind(x@coef,
+               x@se,
+               x@zval,
+               x@pr)
+  colnames(out) <- c("Estimate",
+                     "Std. Error",
+                     "z value",
+                     "Pr(>|z|)")
+  out
 }
 
 #' @rdname as.matrix.pim.summary
