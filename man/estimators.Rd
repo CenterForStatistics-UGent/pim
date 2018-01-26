@@ -83,9 +83,12 @@ matrix, this vcov matrix will be blatantly wrong!!!!!
 }
 
 \examples{
-# This is a reimplementation of the identity link
+## myconstruct creates a score function that uses the identity link.
+## The argument link is ignored, but it can be used to implement
+## score functions for different link functions in a single constructor function.
+
 myconstruct <- function(x,y,link){
-  # this function is returned
+ ## this function is returned
  function(beta){
    xb <- as.vector(x \%*\% beta)
    colSums(x * (y - xb))
@@ -93,8 +96,14 @@ myconstruct <- function(x,y,link){
 }
 
 data(ChickWeight)
+
+## This model uses the function myconstruct to create the link function.
+## By using the argument link = "identity", you make sure that the varicance-
+## covariance matrix is estimated correctly.
+
 themodel <- pim(weight ~ Diet, data = ChickWeight,
-construct = myconstruct)
+                construct = myconstruct,
+                link = "identity")
 
 # compare coefficients to
 themodel2 <- pim(weight ~ Diet, data = ChickWeight,
@@ -102,8 +111,11 @@ themodel2 <- pim(weight ~ Diet, data = ChickWeight,
 coef(themodel)
 coef(themodel2)
 
-# Note that this example uses a wrong estimate for the variance-covariance matrix
-# You have to specify the correct vcov estimator as well
+## Keep in mind that you should always think about how the variance-covariance
+## matrix should be estimated. If you naively apply a score function without
+## giving thought to the vcov estimator, the output of summary() will
+## make no sense.
+
 }
 \seealso{
 \code{\link[nleqslv]{nleqslv}}, \code{\link[stats:glm]{glm.fit}},
