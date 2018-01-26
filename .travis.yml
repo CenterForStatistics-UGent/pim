@@ -20,3 +20,8 @@ before_script:
 
 after_success:
 - Rscript -e 'covr::codecov()'
+
+branches:
+  only:
+  - master
+  - devel
