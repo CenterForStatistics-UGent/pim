@@ -1,6 +1,6 @@
 # This file contains the .onLoad, .onAttach etc.
 
-# LEAVE THIS IN FOR NOW, BUT REMOVE IN 6 MONTHS WHEN THE NEW 
+# LEAVE THIS IN FOR NOW, BUT REMOVE IN 6 MONTHS WHEN THE NEW
 # PIM PACKAGE GETS TRACTION.
 
 .onAttach <- function(libname, pkgname){
@@ -11,5 +11,6 @@
      "  from R-Forge. You can use following command:\n",
      "  install.packages('pimold', repos = 'http://R-Forge.R-project.org')\n\n"
    )
-   packageStartupMessage(themessage)
+   if(interactive())
+    packageStartupMessage(themessage)
 }

@@ -3,12 +3,15 @@
 \docType{methods}
 \name{nobs,pim.environment-method}
 \alias{nobs,pim.environment-method}
+\alias{nobs,pim-method}
 \alias{nobs,pim.poset-method}
 \alias{nobs,matrix-method}
 \alias{nobs,data.frame-method}
 \title{Extract the number of observations}
 \usage{
 \S4method{nobs}{pim.environment}(object)
+
+\S4method{nobs}{pim}(object)
 
 \S4method{nobs}{pim.poset}(object)
 
@@ -23,9 +26,9 @@
 }
 \value{
 In case the function is called on a \code{pim.environment}
-or a \code{pim.poset} object, 
+or a \code{pim.poset} object,
 an integer with the number of (foreseen) observations. If the
-pim.environment is empty, it returns \code{0}. 
+pim.environment is empty, it returns \code{0}.
 
 In all other cases, it returns the output of either \code{\link{nrow}} (for
 matrices and data.frames)
@@ -33,13 +36,27 @@ or \code{\link{length}}.
 }
 \description{
 This function extracts the number of observations in an object
-of class \code{\link{pim.environment}}, or the number of observations
+of class \code{\link{pim.environment}} or \code{\link{pim}},
+or the number of observations
 for which a \code{\link{pim.poset}} is constructed. If applied to
-a matrix or data.frame, it returns the number of rows. 
-For any other object it 
+a matrix or data.frame, it returns the number of rows.
+For any other object it
 does the same as \code{\link{length}}.
 }
-\details{
+\note{
 This package imports the generic \code{\link[stats]{nobs}} from the package
-\code{stats4}.
+\code{\link{stats4}}.
+}
+\examples{
+data('FEVData')
+Model <- pim(FEV~ Smoke*Sex , data=FEVData)
+nobs(FEVData)
+nobs(Model)
+# Get the pim environment out of the model:
+theenv <- penv(Model)
+nobs(Model)
+
+}
+\seealso{
+\code{\link[stats]{nobs}} for the general method for fit objects.
 }

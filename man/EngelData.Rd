@@ -20,7 +20,7 @@ EngelData
 This data originates from Koenker and Bassett (1982). It is a regression
 data set consisting of 235 observations on income and expenditure on
 food for Belgian working class households. The dataset is copied from
-the \href{}{quantreg} package.
+the \href{https://cran.r-project.org/web/packages/quantreg/index.html}{quantreg} package.
 }
 \keyword{data}
 \keyword{engel}
