@@ -1,7 +1,7 @@
 #' Extract the coefficients from a pim or pim.summary object
 #'
 #' This function works like \code{\link[stats]{coef}} from the \code{stats}
-#' package. It extracts the coefficients from the objects.
+#' package. It extracts the coefficients from the object.
 #'
 #' @param object a \code{pim} or \code{pim.summary} object
 #' @param ... currently ignored.
@@ -29,15 +29,7 @@ coef.pim <- function(object, ...){
 }
 
 coef.pim.summary <- function(object,...){
-  out <- cbind(object@coef,
-               object@se,
-               object@zval,
-               object@pr)
-  colnames(out) <- c("Estimate",
-                     "Std. Error",
-                     "z value",
-                     "Pr(>|z|)")
-  out
+    as.matrix(object, ...)
 }
 
 #' @rdname coef

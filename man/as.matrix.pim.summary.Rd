@@ -26,5 +26,19 @@ probability for every coefficient.
 }
 \description{
 This function converts a summary object to a matrix so values can be
-extracted from it.
+extracted from it. This function is provided mainly for internal use.
+One can extract immediately from a \code{\link{pim.summary}} object
+using standard matrix extraction.
+}
+\examples{
+data(FEVData)
+Model <- pim(FEV~ Smoke*Sex , data=FEVData)
+
+thesummary <- summary(Model)
+as.matrix(thesummary)
+
+}
+\seealso{
+\code{\link{Extract.pim.summary}} for more information on
+extracting from a \code{pim.summary} object.
 }

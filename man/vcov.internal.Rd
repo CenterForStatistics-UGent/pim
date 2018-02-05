@@ -26,9 +26,9 @@ U.score(Zbeta, Z, Y, link, W = NULL)
 These functions serve as preparation functions to calculute the variance-
 covariance matrix of a pim using any of the \code{\link{vcov.estimators}}
 provided in this package. The result of these preparation functions
-is used by the \code{\link{sandwich.estimator}} and 
+is used by the \code{\link{sandwich.estimator}} and
 \code{\link{score.estimator}} functions respectively.
 }
 \note{
-These functions should NOT be called by the user
+These functions should NOT be called by the user.
 }

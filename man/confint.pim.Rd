@@ -7,7 +7,7 @@
 \alias{confint}
 \alias{confint,pim-method}
 \alias{confint,pim.summary-method}
-\title{Calculate Wald confidence intervals around the coefficients of a PIM}
+\title{Calculate confidence intervals around the coefficients of a PIM}
 \usage{
 confint(object, parm, level = 0.95, ...)
 
@@ -26,6 +26,28 @@ If missing, all parameters are considered}
 \item{...}{extra arguments to methods}
 }
 \description{
-This function returns Wald confidence intervals around the 
-coefficients of a fitted \code{\link{pim}} object
+This function returns confidence intervals around the
+coefficients of a fitted \code{\link{pim}} object, assuming asymptotic
+normality.
+}
+\details{
+The confidence intervals are calculated using the following formula:
+\deqn{
+CI = \beta \pm Z_\alpha \frac{\sigma}{\sqrt(n)}
+}{
+CI = \beta +- Z(\alpha) * \sigma / \sqrt(n)
+}
+}
+\section{Warning}{
+ This is a pretty naive way of calculating confidence intervals, and
+highly dependent on a correct estimate of the standard error around
+the coefficients.
+}
+
+\examples{
+data('FEVData')
+Model <- pim(FEV~ Smoke*Sex , data=FEVData)
+confint(Model)
+summ <- summary(Model)
+confint(summ)
 }
