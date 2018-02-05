@@ -25,7 +25,7 @@ Imports:
 License: GPL (>= 2)
 URL: https://github.com/CenterForStatistics-UGent/pim
 BugReports: https://github.com/CenterForStatistics-UGent/pim/issues
-Collate:
+Collate: 
     'CreateScoreFun.R'
     'DysData.R'
     'EngelData.R'
@@ -46,7 +46,6 @@ Collate:
     'LR.R'
     'MHData.R'
     'P.R'
-    'SUData.R'
     'add.poset.R'
     'as.data.frame.pim.environment.R'
     'as.matrix.pim.summary.R'
