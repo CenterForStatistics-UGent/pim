@@ -55,7 +55,7 @@ link(object, ...)
 \item{...}{arguments passed to and from other methods.}
 }
 \value{
-\code{classes()}: A named vector with the classes of the data 
+\code{classes()}: A named vector with the classes of the data
 contained in the \code{pim.environment}
 
 \code{names()}: For an object of class \code{pim.environment} the names
@@ -63,7 +63,7 @@ of the variables in the object. For an object of class \code{pim.poset},
 the name of the poset functions inside the environment
 
 \code{compare()}: A character value indicating how the comparison
-is defined in a \code{pim.poset} object, or the poset-slot of 
+is defined in a \code{pim.poset} object, or the poset-slot of
 a \code{pim.environment} object respectively.
 
 \code{model()}: a character value that displays
@@ -74,8 +74,14 @@ the type of link (difference, marginal, regular or customized)
 }
 \description{
 These functions serve to extract the information contained
-in the objects of class \code{\link{pim.environment}} and 
+in the objects of class \code{\link{pim.environment}} and
 \code{\link{pim.poset}}.
+}
+\note{
+The functions shouldn't be used normally by the user of the
+package. The \code{\link{pim.poset}} class only makes sense in
+the context of a \code{pim.environment}. So for almost all use of
+the package you should never access it directly.
 }
 \examples{
 data(DysData)
@@ -92,6 +98,6 @@ model(thesummary)
 }
 \seealso{
 \code{\link{nobs}}, \code{\link{poset}}, \code{\link{is.complete}},
-\code{\link{pim.environment-class}}, \code{\link{pim.poset-class}}, 
+\code{\link{pim.environment-class}}, \code{\link{pim.poset-class}},
 \code{\link{pim-class}}, \code{\link{pim.summary-class}}
 }
