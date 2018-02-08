@@ -1,21 +1,24 @@
 #' Extract a pim environment from a model or formula
-#' 
-#' This function allows you to extract the 
+#'
+#' This function allows you to extract the
 #' \code{\link{pim.environment}} object from either a \code{pim}
-#' object or a \code{pim.formula} object. 
-#' 
+#' object or a \code{pim.formula} object.
+#'
 #' @param x either a \code{pim} or a \code{pim.formula} object
-#' 
+#'
 #' @return In case of a \code{pim} object, the \code{pim.environment}
-#' contained therein. In case of a \code{pim.formula} object, 
-#' the environment itself. 
-#' See the help page \code{pim.formula-class}.
-#' 
-#' @examples 
+#' contained therein. In case of a \code{pim.formula} object,
+#' the environment itself.
+#'
+#' @seealso
+#' \code{pim.formula-class} for more information on the formula object.
+#' \code{\link{pim.environment}} for more information on the pim environments.
+#'
+#' @examples
 #' data("FEVData")
 #' # Create the "model frame"
 #' FEVenv <- new.pim.env(FEVData, compare="unique")
-#' 
+#'
 #' # create the formula and bind it to the pim.environment.
 #' FEVform <- new.pim.formula(
 #'   Age ~ I(L(Height) - R(Height))  ,
@@ -23,11 +26,11 @@
 #' )
 #' theEnv <- penv(FEVform)
 #' ls(theEnv)
-#' 
+#'
 #' themodel <- pim(Age ~ Height, FEVenv)
 #' thePEnv <- penv(themodel)
 #' thePEnv
-#' 
+#'
 #' ls(thePEnv)
 #' # Note that this is a different environment, and that it only contains
 #' # the variables in the formula, contrary to the environment created

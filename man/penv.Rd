@@ -18,12 +18,11 @@ penv(x)
 }
 \value{
 In case of a \code{pim} object, the \code{pim.environment}
-contained therein. In case of a \code{pim.formula} object, 
-the environment itself. 
-See the help page \code{pim.formula-class}.
+contained therein. In case of a \code{pim.formula} object,
+the environment itself.
 }
 \description{
-This function allows you to extract the 
+This function allows you to extract the
 \code{\link{pim.environment}} object from either a \code{pim}
 object or a \code{pim.formula} object.
 }
@@ -48,4 +47,8 @@ ls(thePEnv)
 # Note that this is a different environment, and that it only contains
 # the variables in the formula, contrary to the environment created
 # by new.pim.formula
+}
+\seealso{
+\code{pim.formula-class} for more information on the formula object.
+\code{\link{pim.environment}} for more information on the pim environments.
 }
