@@ -25,10 +25,10 @@ This is currently only implemented in concordance with
 the generic \code{\link[stats]{model.matrix}} function.}
 
 \item{data}{an optional argument specifying the data frame for which
-the model matrix should be constructed. See also 
+the model matrix should be constructed. See also
 \code{\link[stats]{model.matrix})} in the \code{stats} package.}
 
-\item{model}{a single character value with possible values "difference" 
+\item{model}{a single character value with possible values "difference"
 (the default), "marginal", "regular" or "customized". See also
 \code{\link{pim}}.}
 }
@@ -62,4 +62,8 @@ Y <- response(FEVform)
 # Now pim.fit can do what it does
 res <- pim.fit(MM,Y, estim = "estimator.glm", penv=FEVenv)
 
+}
+\seealso{
+\code{\link{pim.formula}}, \code{\link{new.pim.env}},
+\code{\link{poset}} and \code{\link{response}}.
 }
