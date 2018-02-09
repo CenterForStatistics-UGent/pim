@@ -87,7 +87,7 @@ reduce calculation time for these further calculations.
 
 In case you want to fit a standard PIM, you can specify the model in
 mostly the same way as for \code{\link[stats]{lm}}. There's one important
-difference: a PIM has by default no intercept. To add an intercept, use
+difference: a standard PIM has no intercept by default. To add an intercept, use
 \code{+ 1} in the formula.
 
 Next to this, you can use the functions \code{\link{L}} and \code{\link{R}}
@@ -117,6 +117,22 @@ it is equal to the value for value from the R-poset (see also \code{\link{PO}})
 data('FEVData')
 # The most basic way to use the function
 Model <- pim(FEV~ Smoke*Sex , data=FEVData)
+
+# To get information from the model, use any of the functions mentioned
+# in the see also section.
+
+## Get the coefficients
+coef(Model)
+
+## Information on the estimates and standard error
+summ <- summary(Model)
+summ
+
+## Get the p value out for the interaction:
+summ["Smoke:Sex", 4]
+
+## Get (asymptotic) confidence intervals around the coefficients:
+confint(Model)
 
 # A model with intercept
 # The argument xscalm is passed to nleqslv via pim.fit and estimator.nleqslv
