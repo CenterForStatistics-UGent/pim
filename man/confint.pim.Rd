@@ -23,7 +23,13 @@ If missing, all parameters are considered}
 
 \item{level}{The confidence level required.}
 
-\item{...}{extra arguments to methods}
+\item{...}{extra arguments to methods, currently ignored.}
+}
+\value{
+a matrix with in the first column the lower bound and in the
+second column the higher bound of the confidence interval. Each row
+gives the confidence interval of one of the coefficients, assuming
+asymptotic normality.
 }
 \description{
 This function returns confidence intervals around the
@@ -50,4 +56,8 @@ Model <- pim(FEV~ Smoke*Sex , data=FEVData)
 confint(Model)
 summ <- summary(Model)
 confint(summ)
+}
+\seealso{
+the function \code{stats::\link[stats]{confint}} from the
+\code{stats} package.
 }

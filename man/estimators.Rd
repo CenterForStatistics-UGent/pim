@@ -98,7 +98,7 @@ myconstruct <- function(x,y,link){
 data(ChickWeight)
 
 ## This model uses the function myconstruct to create the link function.
-## By using the argument link = "identity", you make sure that the varicance-
+## By using the argument link = "identity", you make sure that the variance-
 ## covariance matrix is estimated correctly.
 
 themodel <- pim(weight ~ Diet, data = ChickWeight,

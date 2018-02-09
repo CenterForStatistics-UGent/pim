@@ -17,26 +17,26 @@ with information on the objects inside the environment.
 
 \describe{
 \item{\code{poset}}{an environment of class \code{\link{pim.poset}} containing the  poset-related functions
-(normally these are \code{\link{L}} and \code{\link{R}}). This 
+(normally these are \code{\link{L}} and \code{\link{R}}). This
 environment has the object itself as parent.}
 
 \item{\code{data.names}}{a character vector containing the names of the
 vectors that represent the data}
 
-\item{\code{nobs}}{integer value indicating the number of observations in the 
+\item{\code{nobs}}{integer value indicating the number of observations in the
 environment}
 
 \item{\code{classes}}{a _named_ list containing the classes of the
 objects inside the environment. Note that the value should be the one
 given by \code{\link{class}}.}
 
-\item{\code{is.complete}}{a logical value indicating whether or not the poset
-was added before.}
+\item{\code{is.complete}}{a logical value indicating whether or not the object
+contains actual data and a compatible \code{pim.poset} environment.}
 }}
 
 \section{Note}{
- 
-This class is not exported, so it can't be extended as for now. 
+
+This class is not exported, so it can't be extended as for now.
 Although it is possible to use the function \code{\link{new}} for
 creation of new instances, users are strongly advised to use
 the function \code{\link{new.pim.env}} in case they need to manually

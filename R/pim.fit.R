@@ -2,9 +2,30 @@
 #'
 #' This is the basic computing engine called by \code{\link{pim}}
 #' to get the estimates for the coefficients and the variance-
-#' covariance matrices. This function currently only spits out
-#' these components using the sandwich estimators.
+#' covariance matrices, based on the model matrix and the pseudo-responses
+#' of the model. It allows you finer control over the actual procedure
+#' used to fit the model, but most parameters can be controlled by using
+#' the main modeling function \code{\link{pim}}.
 #'
+#' The parameters \code{estim} and \code{vcov.estim} allow you to
+#' plug in your own optimalization code. The package provides a couple
+#' of \code{\link{estimators}} based on different other packages, but
+#' one can write similar functions if one wants to use a different
+#' optimization algorithm.
+#'
+#' In case you write your own, the function should take the exact same
+#' arguments as those described in \code{\link{estimators}}. More
+#' specifically, the arguments \code{x}, \code{y}, \code{start} and
+#' \code{link} are passed -in that order- to these functions.
+#'
+#' When providing your own estimator or your own score function (see
+#' also \code{\link{CreateScoreFun}}), you have to make sure it is
+#' either compatible with the estimator for the variance-covariance
+#' matrix or you have to provide your own estimator there as well.
+#' This estimator should take an extra argument \code{poset} needed to
+#' pass a list with the poset (see also \code{link{poset}}). The
+#' function \code{pim.fit} extracts this list from the value of
+#' penv.
 #'
 #' @param x a model matrix with as many rows as \code{y}.
 #' @param y a vector with the pseudo-responses
@@ -43,7 +64,30 @@
 #' }
 #'
 #' @seealso \code{\link{model.matrix}} for how to construct a valid model matrix
-#' for a pim, \code{\link{pim}} for the general user interface
+#' for a pim, \code{\link{pim}} for the general user interface.
+#'
+#' @examples
+#' data("FEVData")
+#' # Create the "model frame"
+#' FEVenv <- new.pim.env(FEVData, compare="unique")
+#' # This includes the poset
+#' pos <- poset(FEVenv, as.list=TRUE)
+#'
+#' # create the formula and bind it to the pim.environment.
+#' FEVform <- new.pim.formula(
+#'   Age ~ I(L(Height) - R(Height))  ,
+#'   FEVenv
+#' )
+#'
+#' # Use this formula object to construct the model matrix
+#' # use the default model ( difference )
+#' MM <- model.matrix(FEVform)
+#'
+#' # Use this formula object to construct the pseudo response
+#' Y <- response(FEVform)
+#'
+#' # Now pim.fit can do what it does
+#' res <- pim.fit(MM,Y, estim = "estimator.glm", penv=FEVenv)
 #'
 #' @export
 pim.fit <- function(x,y,link = "logit",

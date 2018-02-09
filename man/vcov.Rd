@@ -19,10 +19,12 @@ vcov(object, ...)
 \item{...}{arguments passed to other methods. Currently ignored}
 }
 \value{
-the variance-covariance matrix
+A matrix with the variance-covariance values
 }
 \description{
-This package defines an S4 generic for \code{\link[stats]{vcov}} and methods for list and pim classes.
+Extract the variance-covariance matrix from a pim model.
+This package defines an S4 generic for \code{\link[stats]{vcov}} and methods for list and pim classes. Other than that, \code{vcov} works as described in
+\code{stats::\link[stats]{vcov}}.
 }
 \examples{
 data(FEVData)
@@ -30,5 +32,5 @@ Model <- pim(FEV~ Age + Smoke*Sex , data=FEVData)
 vcov(Model)
 }
 \seealso{
-\code{\link[stats]{vcov}} in the stats package.
+\code{stats::\link[stats]{vcov}} in the stats package.
 }

@@ -20,7 +20,7 @@ is the case when \code{PO} is used in the context of a probabilistic
 index model fitted with \code{\link{pim}}.}
 }
 \value{
-A numeric value of 0, 0.5 or 1. 1 if x < y, 0.5 if x == y 
+A numeric value of 0, 0.5 or 1. 1 if x < y, 0.5 if x == y
 and 0 if x > y
 }
 \description{
@@ -28,14 +28,18 @@ This functions transform a comparison or otherwise
 logical value to a numeric value for use in a pim.
 }
 \details{
-These functions are constructed purely for notation. 
+These functions are constructed purely for notation.
 \code{P} is completely equivalent
 to \code{\link{as.numeric}}, apart from an extra control
-to check whether it actually makes sense to do so. 
+to check whether it actually makes sense to do so.
 The function \code{PO} is just short for \code{P(x < y) + 0.5*P(x == y)}
 }
 \examples{
-# Check in pim
+## These examples are only for illustration. See the examples in
+## ?pim for how to use these functions in a pim context.
+x <- 1:10
+P(x > 5)
+PO(x, 5)
 
 }
 \seealso{

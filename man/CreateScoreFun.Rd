@@ -38,7 +38,7 @@ hence not exported.
 }
 
 \seealso{
-\code{\link{Estimators}} for more information on how to
+The page \code{\link{estimators}} for more information on how to
 use your own score functions and in which context this function
 is used.
 }

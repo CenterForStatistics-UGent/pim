@@ -5,13 +5,20 @@
 \alias{pim-package}
 \title{Probabilistic Index Models}
 \description{
-Fit a probabilistic index model. Note that this
-version is NOT compatible with the previous version used in the original
-publications on probabilistic index models. If you want to try out the
-original code, please install the package pimold from R-Forge.
+This package offers a toolset to construct and evaluate probabilistic
+index models. To learn about what these models are and how to use
+the pim package to fit them, take a look at \code{vignette("pim")}.
+}
+\details{
+The package has been thoroughly reworked since the original publication
+of the pim methodology. The code examples from the original publication
+are not going to work with this version of the package. For reference,
+the old version is still available at the original RForge repository
+\url{https://r-forge.r-project.org/projects/pim/} under the heading
+R packages.
 }
 \references{
-\url{http://r-forge.r-project.org/projects/pim/}
+\url{https://github.com/CenterForStatistics-UGent/pim}
 }
 \author{
 Joris Meys \email{Joris.Meys@UGent.be} Jan De Neve \email{Jan.DeNeve@UGent.be} original package and engine code by Nick Sabbe.

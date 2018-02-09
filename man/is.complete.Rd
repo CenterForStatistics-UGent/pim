@@ -17,14 +17,8 @@ Objects of class \code{\link{pim.environment}} can be created with
 or without a poset. To check whether an object has a poset included,
 you use the function \code{is.complete}
 }
-\section{Note}{
-
-This function is not written as an S4 method. Might be rewritten
-to S4 later on.
-}
-
 \examples{
-# the constructor returns an empty environment without poset 
+# the constructor returns an empty environment without poset
 is.complete(new.pim.env())
 
 # Constructing a pim environment with a poset

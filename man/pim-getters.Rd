@@ -24,7 +24,7 @@ fitted(object, ...)
 }
 \value{
 \code{keep.data()}: a single logical value indicating whether
-the model matrix and pseudo responses were stored in the 
+the model matrix and pseudo responses were stored in the
 \code{\link{pim}} object.
 
 \code{fitted()}: a numeric vector with the fitted
@@ -39,4 +39,17 @@ themodel <- pim(FEV ~ Age + Height, data = FEVData)
 keep.data(themodel)
 fitted(themodel)
 
+}
+\seealso{
+\itemize{
+\item \code{\link{formula}} to get the formula out,
+\item \code{\link{coef}} to extract the coefficients,
+\item \code{\link{vcov}} to extract the variance-covariance matrix,
+\item \code{\link{penv}} to extract the \code{pim.environment},
+\item \code{\link{fitted}} to extract the fitted data,
+\item \code{\link{link}} to extract which link was used,
+\item \code{\link{model.matrix}} to extract the model matrix
+\item \code{\link{response}} to extract the pseudo observations for
+the response variable
+}
 }

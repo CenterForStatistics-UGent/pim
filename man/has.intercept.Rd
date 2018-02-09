@@ -31,26 +31,26 @@ a single logical value
 }
 \description{
 This function checks whether an intercept is present in a formula of
-some form. It works for a \code{\link[stats]{formula}}, a 
-\code{\link[stats]{terms.object}} a \code{\link{pim.formula}} object or 
+some form. It works for a \code{\link[stats]{formula}}, a
+\code{\link[stats]{terms.object}} a \code{\link{pim.formula}} object or
 a character vector representing a formula.
 }
 \details{
 In case of a \code{terms.object}, this function only checks whether the
-\code{intercept} attribute is larger than 0. In all other cases, the 
+\code{intercept} attribute is larger than 0. In all other cases, the
 function checks whether it can find a \code{+ 1} somewhere in the formula,
 indicating that an intercept has to be fit in a \code{\link{pim}}.
 }
 \note{
 This function is meant to be used in the context of a \code{\link{pim}}
-call. Although the function should work for standard formulas as well,
-correct results are not guaranteed when used outside a pim context.
+call.
 }
 \section{WARNING}{
- This function will return \code{FALSE} for a standard formula
-that is used in the context of a marginal model. Keep in mind that when
-specifying \code{model = 'marginal'} in a call to \code{pim}, the model
-will contain an intercept regardless of the outcome of \code{has.intercept}
+ This function does NOT tell you whether the model
+is fit with an intercept, only whether an explicit intercept (+1)
+was given. It returns \code{FALSE} for a standard formula
+that is used in the context of a marginal model, even though this
+model is fit with an intercept.
 }
 
 \examples{

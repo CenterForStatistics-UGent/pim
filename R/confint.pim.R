@@ -19,7 +19,15 @@
 #' @param parm a specification of which parameters are to be given confidence intervals. Either a vector of numbers or a vector of names.
 #' If missing, all parameters are considered
 #' @param level The confidence level required.
-#' @param ... extra arguments to methods
+#' @param ... extra arguments to methods, currently ignored.
+#'
+#' @return a matrix with in the first column the lower bound and in the
+#' second column the higher bound of the confidence interval. Each row
+#' gives the confidence interval of one of the coefficients, assuming
+#' asymptotic normality.
+#'
+#' @seealso  the function \code{stats::\link[stats]{confint}} from the
+#' \code{stats} package.
 #'
 #' @examples
 #' data('FEVData')

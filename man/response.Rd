@@ -14,14 +14,15 @@ response(object)
 \S4method{response}{pim}(object)
 }
 \arguments{
-\item{object}{an object of class pim or pim.formula.}
+\item{object}{an object of class \code{\link[pim:pim-class]{pim}} or
+\code{\link[pim:pim.formula-class]{pim.formula}}.}
 }
 \value{
-The response variable with pseudo-observations for
-a pim.
+A vector containing the response variable with
+pseudo-observations for a pim.
 }
 \description{
-This function extracts the response from a 
+This function extracts the response from a
 \code{\link{pim.formula}} for use in \code{\link{pim.fit}}.
 }
 \examples{
@@ -29,7 +30,7 @@ data('FEVData')
 Model <- pim(FEV~ Smoke*Sex , data=FEVData)
 response(Model)
 
-# In pieces
+# Extracting directly from a formula
 FEVenv <- new.pim.env(FEVData, compare="unique")
 FEVform <- new.pim.formula(
   Age ~ I(L(Height) - R(Height))  ,
@@ -39,7 +40,7 @@ response(FEVform)
 }
 \seealso{
 \code{\link{pim-class}} and \code{\link{pim.formula-class}}
-for more information on the classes, and \code{\link{pim}}, 
+for more information on the classes, and \code{\link{pim}},
 \code{\link{pim.fit}} and \code{\link{pim.formula}} for more
  information on related functions.
 }

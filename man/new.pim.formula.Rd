@@ -17,7 +17,7 @@ new.pim.formula(formula, data, ...)
 \item{formula}{a formula object}
 
 \item{data}{either a \code{\link{pim.environment}} object containing the
-data for the pim, or an object that can be converted to a 
+data for the pim, or an object that can be converted to a
 \code{pim.environment} by \code{\link{new.pim.env}}}
 
 \item{...}{extra arguments to \code{\link{new.pim.env}}}
@@ -33,16 +33,11 @@ in concordance with \code{\link{model.matrix.pim}}
 }
 \details{
 It is the constructor to be used for a \code{\link{pim.formula}}
-object, and should only be used in conjunction with 
+object, and should only be used in conjunction with
 \code{\link{model.matrix.pim}} and \code{\link{pim.fit}} as shown
 in the examples.
 }
-\seealso{
-\code{\link{pim.formula-class}} for more information on the 
-class itself. \code{\link{PO}}, \code{\link{L}} and \code{R} for some
-functions that can be used in a \code{pim.formula}
-
-#' @examples 
+\examples{
 data("FEVData")
 # Create the "model frame"
 FEVenv <- new.pim.env(FEVData, compare="unique")
@@ -64,4 +59,9 @@ Y <- response(FEVform)
 
 # Now pim.fit can do what it does
 res <- pim.fit(MM,Y, estim = "estimator.glm", penv=FEVenv)
+}
+\seealso{
+\code{\link{pim.formula-class}} for more information on the
+class itself. \code{\link{PO}}, \code{\link{L}} and \code{R} for some
+functions that can be used in a \code{pim.formula}
 }

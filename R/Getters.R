@@ -1,32 +1,37 @@
 #' Extract information from pim.environment and pim.poset objects
-#' 
+#'
 #' These functions serve to extract the information contained
-#' in the objects of class \code{\link{pim.environment}} and 
-#' \code{\link{pim.poset}}. 
-#' 
+#' in the objects of class \code{\link{pim.environment}} and
+#' \code{\link{pim.poset}}.
+#'
 #' @param x an object of class \code{pim.environment} or \code{pim.poset}
 #' @param object an object of class \code{pim} or \code{pim.summary}
 #' @param ... arguments passed to and from other methods.
-#' 
-#' @return \code{classes()}: A named vector with the classes of the data 
+#'
+#' @return \code{classes()}: A named vector with the classes of the data
 #' contained in the \code{pim.environment}
-#' 
+#'
+#' @note The functions shouldn't be used normally by the user of the
+#' package. The \code{\link{pim.poset}} class only makes sense in
+#' the context of a \code{pim.environment}. So for almost all use of
+#' the package you should never access it directly.
+#'
 #' @seealso \code{\link{nobs}}, \code{\link{poset}}, \code{\link{is.complete}},
-#' \code{\link{pim.environment-class}}, \code{\link{pim.poset-class}}, 
+#' \code{\link{pim.environment-class}}, \code{\link{pim.poset-class}},
 #' \code{\link{pim-class}}, \code{\link{pim.summary-class}}
-#' 
+#'
 #' @examples
 #' data(DysData)
 #' DysPimEnv <- new.pim.env(DysData,poset=TRUE)
 #' classes(DysPimEnv)
 #' names(DysPimEnv)
 #' compare(DysPimEnv)
-#' 
+#'
 #' themodel <- pim(SPC_D2 ~ Chemo, data = DysData, model = 'difference')
 #' model(themodel)
 #' thesummary <- summary(themodel)
 #' model(thesummary)
-#' 
+#'
 #' @aliases names compare model link
 #' @include pim.environment-class.R
 #' @export
@@ -69,7 +74,7 @@ setMethod('names',
 #' @export
 #' @rdname classes
 #' @return \code{compare()}: A character value indicating how the comparison
-#' is defined in a \code{pim.poset} object, or the poset-slot of 
+#' is defined in a \code{pim.poset} object, or the poset-slot of
 #' a \code{pim.environment} object respectively.
 setGeneric('compare',function(x) standardGeneric('compare'))
 

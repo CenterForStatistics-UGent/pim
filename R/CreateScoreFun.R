@@ -20,7 +20,7 @@
 #' @section NOTE: This function is intended for internal use and
 #' hence not exported.
 #'
-#' @seealso \code{\link{Estimators}} for more information on how to
+#' @seealso The page \code{\link{estimators}} for more information on how to
 #' use your own score functions and in which context this function
 #' is used.
 #'
