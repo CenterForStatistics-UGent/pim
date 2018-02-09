@@ -7,7 +7,7 @@
 \title{Class pim.summary}
 \description{
 This class contains the summary information from a probabilistic index
-model , and is created by using the function \code{\link{summary}}
+model, and is created by using the function \code{\link{summary}}
 on an object of the \code{\link{pim-class}}.
 }
 \details{
@@ -20,10 +20,10 @@ the coefficients, standard errors, Z values and/or p values.
 \item{\code{formula}}{contains an object of the class \code{\link{pim.formula}}
 containing the model fitted.}
 
-\item{\code{model}}{a character vector describing the type of model. See also the argument \code{model} of the function \code{\link{pim}}}
+\item{\code{model}}{a character vector describing the type of model. See also the argument \code{model} of the function \code{\link{pim}}.}
 
 \item{\code{link}}{a character value that contains the link. See also
-the argument \code{link} of the function \code{\link{pim}}}
+the argument \code{link} of the function \code{\link{pim}}.}
 
 \item{\code{coef}}{a numeric vector with the coefficients}
 
