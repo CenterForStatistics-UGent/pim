@@ -68,7 +68,7 @@
 #'
 #' @examples
 #' data("FEVData")
-#' Create the "model frame"
+#' # Create the "model frame"
 #' FEVenv <- new.pim.env(FEVData, compare="unique")
 #' # This includes the poset
 #' pos <- poset(FEVenv, as.list=TRUE)
