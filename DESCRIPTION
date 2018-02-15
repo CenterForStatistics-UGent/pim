@@ -1,7 +1,7 @@
 Package: pim
 Type: Package
 Title: Fit Probabilistic Index Models
-Version: 2.1.0.4
+Version: 2.1.0.5
 Date: 2018-02-15
 Authors@R: c(person("Joris","Meys", email = "Joris.Meys@UGent.be", role = c('aut', 'cre')),
              person("Jan","De Neve", email = "Jan.DeNeve@UGent.be", role = 'aut'), 

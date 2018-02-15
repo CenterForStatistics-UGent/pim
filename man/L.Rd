@@ -29,20 +29,19 @@ a warning.
 These functions allow you to specify the left hand side and
 right hand side of a term in a pim model. The user should
 only use this functions within a formula using the \code{\link{pim}}
-function. Use in a different context will return an error.
+function.
 }
 \details{
 These specific functions are actually not used by the
 function \code{\link{pim}}. \code{pim} calls the internal function
 \code{\link{.make.posfun}} to create the actual functions \code{L}
-and \code{R} to work with the specified posets of the model of
-interest.
+and \code{R} in a \code{\link{pim.poset}} object.
 
 The actual functions used by \code{pim} are saved in a specific environment, a \code{\link{pim.environment}}, which resides in the \code{\link{pim-class}} object returned by \code{pim}. This way of working
 is chosen in order to avoid unnecessary copying of data.
 
 The function \code{PP} serves simply as short for \code{R(x) - L(x)}. If used outside the context of a pim model, it will generate
-multiple warnings (see section warning).
+errors (see section warning).
 }
 \section{warning}{
 
