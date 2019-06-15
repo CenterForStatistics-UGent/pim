@@ -39,7 +39,7 @@ The methodology is described in the following paper:
 
 Thas O, De Neve J, Clement L and Ottoy J (2012). “Probabilistic Index
 Models.” _Journal of the Royal Statistical Society B_, **74**(4), pp.
-623-671. [doi: 10.1111/j.1467-9868.2011.01020.x  ](http://dx.doi.org/10.1111/j.1467-9868.2011.01020.x)
+623-671. [doi: 10.1111/j.1467-9868.2011.01020.x  ](https://doi.org/10.1111/j.1467-9868.2011.01020.x)
 
 Please refer to the methodological paper when using the pim package for research. How to refer to the pim package itself, is shown by
 
