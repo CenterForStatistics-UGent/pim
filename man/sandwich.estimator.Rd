@@ -5,8 +5,15 @@
 \alias{score.estimator}
 \title{Pseudo-observation variance sandwich estimator}
 \usage{
-sandwich.estimator(U, U.diff, g1, g2, shared.factor = 1,
-  switched.factor = 1, self.factor = 1)
+sandwich.estimator(
+  U,
+  U.diff,
+  g1,
+  g2,
+  shared.factor = 1,
+  switched.factor = 1,
+  self.factor = 1
+)
 }
 \arguments{
 \item{U}{See the formula for sandwich estimator: 

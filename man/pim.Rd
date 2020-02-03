@@ -4,10 +4,17 @@
 \alias{pim}
 \title{Fitting a Probabilistic Index Model}
 \usage{
-pim(formula, data, link = c("logit", "probit", "identity"), compare = if
-  (model == "marginal") "all" else "unique", model = c("difference",
-  "marginal", "regular", "customized"), na.action = getOption("na.action"),
-  weights = NULL, keep.data = FALSE, ...)
+pim(
+  formula,
+  data,
+  link = c("logit", "probit", "identity"),
+  compare = if (model == "marginal") "all" else "unique",
+  model = c("difference", "marginal", "regular", "customized"),
+  na.action = getOption("na.action"),
+  weights = NULL,
+  keep.data = FALSE,
+  ...
+)
 }
 \arguments{
 \item{formula}{An object of class \code{\link{formula}} (or one that

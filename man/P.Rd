@@ -3,7 +3,6 @@
 \name{P}
 \alias{P}
 \alias{PO}
-\alias{PO}
 \title{Probability function}
 \usage{
 P(x)

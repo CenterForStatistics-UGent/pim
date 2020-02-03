@@ -4,10 +4,6 @@
 \alias{L}
 \alias{R}
 \alias{PP}
-\alias{L}
-\alias{R}
-\alias{L}
-\alias{PP}
 \title{Specify the left hand and right hand side of an expression used in pims}
 \usage{
 L(x)

@@ -4,8 +4,17 @@
 \alias{pim.fit}
 \title{Fitter function for a probabilistic index model}
 \usage{
-pim.fit(x, y, link = "logit", estim = "estimator.nleqslv", start = rep(0,
-  ncol(x)), vcov.estim = "sandwich.vcov", weights = NULL, penv, ...)
+pim.fit(
+  x,
+  y,
+  link = "logit",
+  estim = "estimator.nleqslv",
+  start = rep(0, ncol(x)),
+  vcov.estim = "sandwich.vcov",
+  weights = NULL,
+  penv,
+  ...
+)
 }
 \arguments{
 \item{x}{a model matrix with as many rows as \code{y}.}

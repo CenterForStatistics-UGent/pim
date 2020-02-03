@@ -4,7 +4,6 @@
 \alias{vcov.internal}
 \alias{U.sandwich}
 \alias{U.score}
-\alias{U.score}
 \title{Internal functions for vcov estimation}
 \usage{
 U.sandwich(Zbeta, Z, Y, link, W = NULL)
