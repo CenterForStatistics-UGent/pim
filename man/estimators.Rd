@@ -4,18 +4,30 @@
 \alias{estimators}
 \alias{estimator.nleqslv}
 \alias{estimator.glm}
-\alias{estimator.glm}
 \alias{estimator.BB}
 \title{Estimator functions for probabilistic index models}
 \usage{
-estimator.nleqslv(x, y, start = rep(0, ncol(x)), link = "logit",
-  construct = NULL, ...)
+estimator.nleqslv(
+  x,
+  y,
+  start = rep(0, ncol(x)),
+  link = "logit",
+  construct = NULL,
+  ...
+)
 
 estimator.glm(x, y, start = rep(0, ncol(x)), link = "logit", ...)
 
-estimator.BB(x, y, start = rep(0, ncol(x)), link = "logit",
-  construct = NULL, method = c(1, 2, 3), control = list(NM = c(FALSE,
-  TRUE)), ...)
+estimator.BB(
+  x,
+  y,
+  start = rep(0, ncol(x)),
+  link = "logit",
+  construct = NULL,
+  method = c(1, 2, 3),
+  control = list(NM = c(FALSE, TRUE)),
+  ...
+)
 }
 \arguments{
 \item{x}{a model matrix for the respective pim model. See also

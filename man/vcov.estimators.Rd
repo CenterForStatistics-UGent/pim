@@ -4,8 +4,6 @@
 \alias{vcov.estimators}
 \alias{sandwich.vcov}
 \alias{score.vcov}
-\alias{vcov.estimators}
-\alias{score.vcov}
 \title{vcov estimators for pim}
 \usage{
 sandwich.vcov(fitted, X, Y, W, link, poset, ...)
