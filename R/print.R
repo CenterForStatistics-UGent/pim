@@ -1,25 +1,26 @@
 #' Print methods for the different object types
-#' 
+#'
 #' Printing \code{pim}, \code{pim.environment}, \code{pim.formula} and
-#' \code{pim.poset} objects. 
-#' 
+#' \code{pim.poset} objects.
+#'
 #' @param x the object
 #' @param digits an integer that defines the number of digits printed
 #' @param n number of observations shown by \code{print}
 #' @param show.vcov a logical value indicating whether the variance-
 #' covariance matrix should be shown or not. Defaults to \code{FALSE}
 #' @param ... arguments passed to other methods. Currently ignored
-#' 
+#'
 #' @return invisible NULL
 #' @include pim-class.R pim.environment-class.R pim.formula-class.R pim.poset-class.R
-#' 
-#' @examples 
+#'
+#' @examples
 #' data(FEVData)
 #' Model <- pim(FEV~ Smoke*Sex , data=FEVData)
 #' print(Model)
 #' print(penv(Model))
 #' # You get the drift
-#' 
+#'
+#' @importFrom utils head
 #' @export
 setGeneric('print')
 
@@ -36,10 +37,10 @@ print.pim <- function(x, digits = max(3L, getOption("digits") - 3L),
       "\nType: ", x@model,
       "\nLink: ", x@link,
       "\n\n")
-  
+
   if (length(coefs)) {
     cat("Coefficients:\n")
-    print.default(format(coefs, digits = digits), print.gap = 2L, 
+    print.default(format(coefs, digits = digits), print.gap = 2L,
                   quote = FALSE)
   }
   else cat("No coefficients\n")
@@ -70,24 +71,24 @@ setMethod('print',
 print.pim.environment <- function(x, digits = max(3L, getOption("digits") - 3L), n = 6L, ...){
   no <- nobs(x)
   nc <- length(classes(x))
-  
+
   complete <- is.complete(x)
   ww <- if(complete) "with" else "without"
   cat('\nPIM environment with',no,
       'observations of',nc,'variables.\n\n')
-  
+
   print(head(as.data.frame(x), n = n))
-  
+
   if(n<no) cat("(Only first",n,"observations shown.)\n")
-  
+
   cat("\n",ww,"poset\n")
   if(complete)
     print(t(poset(x))[,seq_len(n)])
-  
+
   if(n<no) cat("(Only first",n,"columns shown.)\n")
-  
+
   invisible(NULL)
-  
+
 }
 
 # show method for pim.environment
@@ -107,16 +108,16 @@ setMethod('print',
 
 print.pim.poset <- function(x, digits = max(3L, getOption("digits") - 3L), n = 6L, ...){
   no <- nobs(x)
-  
+
   cat('\nPIM poset for',no,
       'observations.\n','comparison:',compare(x),'\n\n')
-  
+
   print(t(poset(x))[,seq_len(n)])
-  
+
   if(n<no) cat("(Only first",n,"columns shown.)\n")
-    
+
   invisible(NULL)
-  
+
 }
 
 # show method for pim.poset
@@ -135,14 +136,14 @@ setMethod('print',
 #------------------------
 
 print.pim.formula <- function(x, digits = max(3L, getOption("digits") - 3L), ...){
-  
+
   intercept <- has.intercept(x)
   ww <- if(intercept) 'with' else 'without'
   cat('\nPIM formula',ww,'intercept:\n')
   print(x@orig)
   cat('\nLeft hand side:',deparse(lhs(x)))
-  
-  
+
+
 }
 
 # show method for pim.formula
@@ -164,20 +165,20 @@ setMethod('print',
 print.pim.summary <- function(x, digits = max(3L, getOption("digits") - 3L),...){
   orig <- paste(deparse(formula(x@formula)))
   cat("pim.summary of following model : \n", orig)
-  
-  
+
+
   cat("\nType: ", model(x),
       "\nLink: ", link(x),"\n\n")
-  
+
   Tab <- cbind(
-    Estimate = coef(x), 
+    Estimate = coef(x),
     "Std. Error" = x@se,
-    "z value" = x@zval, 
+    "z value" = x@zval,
     "Pr(>|z|)" = x@pr
   )
   cat("\n")
   printCoefmat(Tab, digits = digits)
-  
+
   if(length(x@h0) == 1){
     cat("\nNull hypothesis: b =",x@h0,"\n")
   } else {
@@ -188,7 +189,7 @@ print.pim.summary <- function(x, digits = max(3L, getOption("digits") - 3L),...)
     }
     cat("\n")
   }
-  
+
 }
 
 setMethod("show",

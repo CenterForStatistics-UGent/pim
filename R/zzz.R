@@ -1,6 +1,6 @@
 # This file contains the .onLoad, .onAttach etc.
 
-# LEAVE THIS IN FOR NOW, BUT REMOVE IN 6 MONTHS WHEN THE NEW 
+# LEAVE THIS IN FOR NOW, BUT REMOVE IN 6 MONTHS WHEN THE NEW
 # PIM PACKAGE GETS TRACTION.
 
 .onAttach <- function(libname, pkgname){

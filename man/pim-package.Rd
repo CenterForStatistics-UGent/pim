@@ -9,6 +9,10 @@ Fit a probabilistic index model. Note that this
 version is NOT compatible with the previous version used in the original
 publications on probabilistic index models. If you want to try out the
 original code, please install the package pimold from R-Forge.
+You can install the old package using:
+}
+\details{
+\code{install.packages('pimold', repos = 'http://R-Forge.R-project.org')}
 }
 \references{
 \url{http://r-forge.r-project.org/projects/pim/}

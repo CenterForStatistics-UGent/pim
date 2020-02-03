@@ -16,22 +16,22 @@ PP(x)
 \item{x}{any vector specified in a formula}
 }
 \value{
-a vector with the pseudo-observations for x, based on the 
+a vector with the pseudo-observations for x, based on the
 poset used to create the function. If used in a wrong context (i.e.
 not in a call to \code{pim}), it returns \code{x} unchanged and throws
 a warning.
 }
 \description{
-These functions allow you to specify the left hand side and 
+These functions allow you to specify the left hand side and
 right hand side of a term in a pim model. The user should
 only use this functions within a formula using the \code{\link{pim}}
 function. Use in a different context will return an error.
 }
 \details{
-These specific functions are actually not used by the 
+These specific functions are actually not used by the
 function \code{\link{pim}}. \code{pim} calls the internal function
 \code{\link{.make.posfun}} to create the actual functions \code{L}
-and \code{R} to work with the specified posets of the model of 
+and \code{R} to work with the specified posets of the model of
 interest.
 
 The actual functions used by \code{pim} are saved in a specific environment, a \code{\link{pim.environment}}, which resides in the \code{\link{pim-class}} object returned by \code{pim}. This way of working
