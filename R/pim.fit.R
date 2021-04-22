@@ -54,7 +54,8 @@ pim.fit <- function(x,y,link = "logit",
 {
   estimF <- match.fun(estim)
   vcov.estimF <- match.fun(vcov.estim)
-  res <- estimF(x, y, link = link, start=start, ...)
+  # if(! is.null(weights)) {print("flag: pim.fit.R")}
+  res <- estimF(x, y, link = link, weights = weights, start=start, ...)
 
   fits <- x %*% res$coef
   dim(fits) <- NULL

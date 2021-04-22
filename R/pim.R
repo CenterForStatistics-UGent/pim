@@ -221,9 +221,14 @@ pim <- function(formula,
 
   names(res$coef) <- colnames(x)
 
+  if(is.null(weights)) {
+    weights <- rep(1, length(y))
+  }
+
   if(!keep.data){
     x <- matrix(nrow=0,ncol=0)
     y <- numeric(0)
+    weights <- numeric(0)
   }
 
   new.pim(
@@ -231,6 +236,7 @@ pim <- function(formula,
     coef = res$coef,
     vcov = res$vcov,
     fitted = res$fitted,
+    weights = weights,
     penv = penv,
     link = link,
     estimators=res$estim,
