@@ -1,25 +1,25 @@
 #' Create a score function for use in a pim.
-#' 
-#' This function creates a suitable score function for the fitting 
-#' process of a probabilistic index model. 
-#' 
+#'
+#' This function creates a suitable score function for the fitting
+#' process of a probabilistic index model.
+#'
 #' @param Z the model matrix of pseudo-observations
 #' @param Y a vector with the response of the pseudo-observations
-#' @param link a character vector indicating the link function 
+#' @param link a character vector indicating the link function
 #' to be used.
-#' @param W a vector with weights. 
-#' 
+#' @param W a vector with weights.
+#'
 #' @return a function used for estimating the coefficients by
-#' the estimator functions. 
-#' 
+#' the estimator functions.
+#'
 #' @section NOTE: This function is not exported.
 
 CreateScoreFun <-function(Z,Y,
-                          link = c("probit","logit","identity"), 
+                          link = c("probit","logit","identity"),
                           W=NULL)
 {
   link <- match.arg(link)
-  
+
   if (link == "probit") {
     U.func <- function(beta) {
       Zbeta <- c(Z %*% beta)

@@ -3,9 +3,9 @@
 #' These functions serve as preparation functions to calculute the variance-
 #' covariance matrix of a pim using any of the \code{\link{vcov.estimators}}
 #' provided in this package. The result of these preparation functions
-#' is used by the \code{\link{sandwich.estimator}} and 
+#' is used by the \code{\link{sandwich.estimator}} and
 #' \code{\link{score.estimator}} functions respectively.
-#' 
+#'
 #' @param Zbeta fitted values
 #' @param Z design matrix
 #' @param Y pseudo responses
@@ -13,7 +13,7 @@
 #' @param W vector with weights
 #'
 #' @note These functions should NOT be called by the user
-#' 
+#'
 #' @rdname vcov.internal
 #' @name vcov.internal
 #' @aliases U.sandwich U.score
@@ -31,13 +31,13 @@ U.sandwich <- function(Zbeta, Z, Y, link, W=NULL)
     var.PI <- fv*(1-fv)
     var.PI[var.PI == 0] <- 0.01 #correction, not mentioned in the article, low impact
     m.d <- dnorm(Zbeta)
-    m.dd <- -m.d*Zbeta 
+    m.dd <- -m.d*Zbeta
     res <- Y-fv
     U <- Z*m.d*res/var.PI
     if(!is.null(W))
     {
       U<-W * U
-      U.diff <- t(Z)%*% diag(W) %*%(Z*c((var.PI*(m.dd*res - m.d^2) - res*m.d^2*(1-2*fv))/var.PI^2))
+      U.diff <- t(W * Z) %*%(Z*c((var.PI*(m.dd*res - m.d^2) - res*m.d^2*(1-2*fv))/var.PI^2))
     }
     else
     {
@@ -53,7 +53,7 @@ U.sandwich <- function(Zbeta, Z, Y, link, W=NULL)
     if(!is.null(W))
     {
       U<-W * U
-      U.diff <- -t(Z)%*% diag(W) %*%(Z*c(var.PI))
+      U.diff <- -t(W * Z) %*%(Z*c(var.PI))
     }
     else
     {
@@ -68,7 +68,7 @@ U.sandwich <- function(Zbeta, Z, Y, link, W=NULL)
     if(!is.null(W))
     {
       U<-W * U
-      U.diff <- -t(Z)%*% diag(W) %*%(Z)
+      U.diff <- -t(W * Z) %*%(Z)
     }
     else
     {
@@ -79,7 +79,7 @@ U.sandwich <- function(Zbeta, Z, Y, link, W=NULL)
   {
     stop(paste("Unsupported link function for Uforposandwich.default:"), link)
   }
-  
+
   rv<-list(U=U, U.diff=U.diff, fv=fv, shared.factor=1, switched.factor=1, self.factor=1)
   return(rv)
 }
@@ -96,10 +96,10 @@ U.score <- function(Zbeta, Z, Y, link, W=NULL)
     warning("Currently, weights are not supported in Uforposandwich.fakeH0. They will be ignored.")
   }
   Zbeta <- c(Zbeta)
-  
+
   tZ<-t(Z)
   fakeU<-t(solve(tZ %*% Z) %*% tZ)
-  
+
   rv<-list(U=fakeU, U.diff=NULL, fv=Zbeta, shared.factor=1/12, switched.factor=-1/12, self.factor=1/4)
   return(rv)
 }

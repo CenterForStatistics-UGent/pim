@@ -89,10 +89,10 @@
 #' @export
 estimator.nleqslv <-
   function(x,y,start=rep(0,ncol(x)), link="logit",
-           construct = NULL, ...){
+           construct = NULL, weights = NULL, ...){
     construct <- if(is.null(construct)) CreateScoreFun else
                     match.fun(construct)
-    fn <- construct(x,y,link)
+    fn <- construct(x,y,link,weights)
 
     res <- nleqslv(start,fn, ...)
 
