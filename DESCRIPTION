@@ -20,7 +20,8 @@ Imports:
     utils,
     stats4,
     nleqslv,
-    BB
+    BB,
+    generics
 License: GPL (>= 2)
 URL: https://github.com/CenterForStatistics-UGent/pim
 BugReports: https://github.com/CenterForStatistics-UGent/pim/issues
@@ -71,6 +72,7 @@ Collate:
     'response.R'
     'sandwich.estimator.R'
     'summary.R'
+    'tidiers.R'
     'vcov.R'
     'vcov.estimators.R'
     'vcov.internal.R'
@@ -78,4 +80,4 @@ Collate:
 Suggests:
     testthat,
     MASS
-RoxygenNote: 7.0.2
+RoxygenNote: 7.2.3
