@@ -46,13 +46,11 @@ generics::tidy
 #'   geom_errorbarh()
 #'
 #' @aliases pim_tidiers
-#' @export
 #' @seealso \code{\link{broom::tidy}}, \code{\link{pim::summary.pim}}
 #' @family pim tidiers
+#' @export
 tidy.pim <- function(x, conf.int = FALSE, conf.level = 0.95,
                      expit = FALSE, ...) {
-  warn_on_subclass(x, "tidy")
-
   s <- pim::summary(x)
   ret <- tibble(term = names(s@coef),
                 estimate = s@coef,
@@ -61,7 +59,9 @@ tidy.pim <- function(x, conf.int = FALSE, conf.level = 0.95,
                 p.value = s@pr)
 
   if (conf.int) {
-    ci <- broom_confint_terms(x, level = conf.level)
+    ci <- confint(x, level = conf.level) %>%
+      tibble::as_tibble(rownames = "term") |>
+      rename(conf.low = `2.5 %`, conf.high = `97.5 %`)
     ret <- dplyr::left_join(ret, ci, by = "term")
   }
 
