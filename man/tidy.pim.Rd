@@ -3,12 +3,12 @@
 \name{tidy.pim}
 \alias{tidy.pim}
 \alias{pim_tidiers}
-\title{Tudy of a pim object}
+\title{Tidy of a pim object}
 \usage{
 tidy.pim(x, conf.int = FALSE, conf.level = 0.95, expit = FALSE, ...)
 }
 \arguments{
-\item{x}{An `pim` object created by [pim::pim()].}
+\item{x}{An `pim` object created by \code{\link{pim::pim}}.}
 
 \item{conf.int}{Logical indicating whether or not to include
 a confidence interval in the tidied output. Defaults to FALSE.}
@@ -18,17 +18,17 @@ interval if conf.int = TRUE. Must be strictly greater than 0
 and less than 1. Defaults to 0.95, which corresponds to a
 95 percent confidence interval}
 
-\item{expit}{Logical indicating whether or not to apply [plogis] to the
+\item{expit}{Logical indicating whether or not to apply \code{\link{plogis}} to the
 coefficient estimates. Defaults to FALSE.}
 
 \item{...}{Unused, included for generic consistency only.}
 }
 \value{
-A tidy [tibble::tibble()] summarizing component-level
+A tidy \code{\link{tibble::tibble}} summarizing component-level
   information about the model
 }
 \description{
-Tudy of a pim object
+Tidy of a pim object
 }
 \examples{
 \dontshow{if (rlang::is_installed("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -60,6 +60,6 @@ ggplot(d, aes(estimate, term, xmin = conf.low, xmax = conf.high, height = 0)) +
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-[tidy()], [pim::summary.pim()]
+\code{\link{broom::tidy}}, \code{\link{pim::summary.pim}}
 }
 \concept{pim tidiers}

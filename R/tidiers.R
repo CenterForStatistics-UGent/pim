@@ -2,20 +2,20 @@
 #' @export
 generics::tidy
 
-#' Tudy of a pim object
+#' Tidy of a pim object
 #'
-#' @param x An `pim` object created by [pim::pim()].
+#' @param x An `pim` object created by \code{\link{pim::pim}}.
 #' @param conf.int Logical indicating whether or not to include
 #'   a confidence interval in the tidied output. Defaults to FALSE.
 #' @param conf.level The confidence level to use for the confidence
 #'   interval if conf.int = TRUE. Must be strictly greater than 0
 #'   and less than 1. Defaults to 0.95, which corresponds to a
 #'   95 percent confidence interval
-#' @param expit Logical indicating whether or not to apply [plogis] to the
+#' @param expit Logical indicating whether or not to apply \code{\link{plogis}} to the
 #' coefficient estimates. Defaults to FALSE.
 #' @param ... Unused, included for generic consistency only.
 #'
-#' @return A tidy [tibble::tibble()] summarizing component-level
+#' @return A tidy \code{\link{tibble::tibble}} summarizing component-level
 #'   information about the model
 #'
 #' @examplesIf rlang::is_installed("ggplot2")
@@ -47,7 +47,7 @@ generics::tidy
 #'
 #' @aliases pim_tidiers
 #' @export
-#' @seealso [tidy()], [pim::summary.pim()]
+#' @seealso \code{\link{broom::tidy}}, \code{\link{pim::summary.pim}}
 #' @family pim tidiers
 tidy.pim <- function(x, conf.int = FALSE, conf.level = 0.95,
                      expit = FALSE, ...) {
