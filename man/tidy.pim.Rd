@@ -5,7 +5,7 @@
 \alias{pim_tidiers}
 \title{Tidy of a pim object}
 \usage{
-tidy.pim(x, conf.int = FALSE, conf.level = 0.95, expit = FALSE, ...)
+\method{tidy}{pim}(x, conf.int = FALSE, conf.level = 0.95, expit = FALSE, ...)
 }
 \arguments{
 \item{x}{An `pim` object created by \code{\link{pim::pim}}.}
