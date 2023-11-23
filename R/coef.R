@@ -22,7 +22,13 @@
 
 setGeneric('coef')
 
-coef.pim <- coef.pim.summary <- function(object,...){
+#' @method coef pim
+#' @export
+coef.pim <- function(object,...){
+  object@coef
+}
+
+coef.pim.summary <- function(object,...){
   object@coef
 }
 

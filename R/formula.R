@@ -36,7 +36,8 @@
 #' @export
 setGeneric("formula")
 
-
+#' @method formula pim
+#' @export
 formula.pim <- function(x, orig=FALSE, ...){
   if(orig) formula(x@formula) else x@formula
 }
