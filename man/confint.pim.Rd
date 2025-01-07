@@ -25,6 +25,6 @@ If missing, all parameters are considered}
 \item{...}{extra arguments to methods}
 }
 \description{
-This function returns Wald confidence intervals around the 
+This function returns Wald confidence intervals around the
 coefficients of a fitted \code{\link{pim}} object
 }

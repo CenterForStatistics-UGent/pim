@@ -1,0 +1,7 @@
+* 2.0.3 *
+
+Small fixes demanded by CRAN:
+
+ - removal of a call to .Internal()
+ - some small corrections to Rd files
+

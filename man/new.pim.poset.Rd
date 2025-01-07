@@ -26,7 +26,7 @@ new.pim.poset(compare, nobs, parent = parent.frame(), ...)
 }
 \arguments{
 \item{compare}{A character value, matrix or list indicating how the
-poset should be constructed. Defaults to the default value of 
+poset should be constructed. Defaults to the default value of
 \code{\link{create.poset}}. See Details section for more information.}
 
 \item{nobs}{An integer value determining the number of observations
@@ -42,8 +42,8 @@ this object is part of. This is done automatically by the function
 
 \item{...}{arguments passed to other methods.}
 
-\item{comp.value}{a character value to be used as value for the 
-compare slot of the object. Defaults to 'custom' and 
+\item{comp.value}{a character value to be used as value for the
+compare slot of the object. Defaults to 'custom' and
 should be left at the default without
 a very good reason to change it.}
 }
@@ -52,14 +52,14 @@ an \code{\link{pim.poset}} object that can be used to
 replace the poset in a pim environment.
 }
 \description{
-This function allows you to create a \code{\link{pim.poset}} environment 
+This function allows you to create a \code{\link{pim.poset}} environment
 that can be added to a \code{\link{pim.environment}} object. You can
 use this function to create a custom poset, but in general it's safer
-to use the relevant arguments of the \code{\link{pim}} function. 
+to use the relevant arguments of the \code{\link{pim}} function.
 That way more safety checks are carried out.
 }
 \details{
-A poset (or pseudo observation set) in the context of 
+A poset (or pseudo observation set) in the context of
 probabilistic index models is a set of indices that determines
 which observations are compared with one another. It is used to
 construct the pseudo-observations on which the model is fitted.
@@ -71,7 +71,7 @@ creates a poset in such a way that only unique combinations of two
 observations are used in the model. The value "all" creates all
 possible L-R combinations between the observations.
 
-If you want to define the poset yourself, you can pass either a matrix 
+If you want to define the poset yourself, you can pass either a matrix
 or a list with 2 elements as value for the argument \code{compare}.
 Columns of the matrix or elements of the list should either be named
 "L" and "R", or be unnamed. When unnamed, the function takes the first
@@ -84,7 +84,7 @@ these names are ignored and the first column is seen as "L".
 You can omit the argument \code{compare} if you supply a value for
 \code{nobs}. You can also omit the argument \code{nobs} if you
 provide a matrix or list as value for \code{compare}. The function
-will try to deduct the number of observations from the highest 
+will try to deduct the number of observations from the highest
 index value present in the matrix/list
 
 You can't omit both arguments together though, as the function
@@ -94,7 +94,7 @@ the poset is designed for.
 
 \section{Warning}{
 
-Changing the value of \code{comp.value} by hand might result in 
+Changing the value of \code{comp.value} by hand might result in
 errors or a wrongly fitted model. The argument exists for internal
 purposes and possible extensions later on, but should not be used.
 }

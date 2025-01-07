@@ -17,6 +17,14 @@ You can install the old package using:
 \references{
 \url{http://r-forge.r-project.org/projects/pim/}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/CenterForStatistics-UGent/pim}
+  \item Report bugs at \url{https://github.com/CenterForStatistics-UGent/pim/issues}
+}
+
+}
 \author{
 Joris Meys \email{Joris.Meys@UGent.be} Jan De Neve \email{Jan.DeNeve@UGent.be} original package and engine code by Nick Sabbe.
 }
